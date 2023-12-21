@@ -1,0 +1,150 @@
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Bad+Script&family=Open+Sans&display=swap");
+
+* {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: "Open Sans", sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+body > footer {
+    position: sticky;
+    top: 100vh;
+}
+
+.btn {
+    font-size: 1em;
+    padding: 6px 12px;
+    margin: 0.5em;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 0.5em;
+    border: 1px solid transparent;
+    background-color: #3288bd;
+    color: #ffffff;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+header {
+    width: 100%;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+main {
+    width: 100%;
+}
+
+section {
+    margin: 1em auto;
+    padding: 1em;
+}
+
+#select-game {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* polaroids */
+
+/* colors from ColorBrewer2.org: diverging*10 */
+.polaroid:nth-child(1) {background-color: #9e0142;}
+.polaroid:nth-child(2) {background-color: #d53e4f;}
+.polaroid:nth-child(3) {background-color: #f46d43;}
+.polaroid:nth-child(4) {background-color: #fee08b;}
+.polaroid:nth-child(5) {background-color: #66c2a5;}
+.polaroid:nth-child(6) {background-color: #3288bd;}
+.polaroid:nth-child(7) {background-color: #5e4fa2;}
+
+.polaroid {
+    width: 250px;
+    text-align: center;
+    font-size: 2em;
+    padding: 0.25em;
+    margin: 0.5em auto;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 8px 20px #000000;
+    cursor: pointer;
+}
+
+.polaroid img {
+    display: none;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.polaroid:hover,
+.polaroid.left:hover,
+.polaroid.right:hover {
+    z-index: 1;
+    transform: scale(0.9) rotate(0);
+}
+
+footer {
+    width: 100%;
+    height: 2em;
+}
+
+/* media queries */
+@media screen and (min-width: 450px) {
+    #select-game {
+        flex-direction: row;
+    }
+
+    /* polaroids */
+    .polaroid {
+        width: 200px;
+    }
+}
+@media screen and (min-width: 600px) {
+    /* polaroids */
+    .polaroid {
+        width: 200px;
+        font-family: "Bad Script", cursive;
+        background-color: #ffffff !important;
+    }
+    .polaroid img {
+        display: block;
+    }
+
+    .polaroid.left {
+        transform: scale(0.75) rotate(-5deg);
+    }
+
+    .polaroid.right {
+        transform: scale(0.75) rotate(5deg);
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.disable {
+    pointer-events: none;
+}
