@@ -162,3 +162,27 @@ function generateQuestion() {
     });
 }
 
+function userClickedFlag(e) {
+    // user selected something - verify that it's an <img>
+    // this is to allow disabling additional guesses, but including hover/animation effects
+    if (e.target.nodeName == "IMG") {
+        let clickedFlag = e.target;
+        checkAnswer(clickedFlag);
+        disableFlags();
+    }
+}
+
+function checkAnswer(clickedFlag) {
+    // check if the user's selected choice matches the current country's data
+    let countryClicked = clickedFlag.src.slice(-6, -4);  // grab the iso from clicked flag
+
+    if (countryClicked == selectedCountries[currentCountryIndex].iso) {
+        // match
+        console.log("success!");
+    } else {
+        // no match
+        console.log("wrong!");
+        clickedFlag.parentElement.classList.add("incorrect");
+    }
+}
+
