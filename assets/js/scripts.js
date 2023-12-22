@@ -68,7 +68,11 @@ polaroids.forEach(polaroid => {
 function startGame() {
     // hide the welcome area and game selection
     sectionWelcome.classList.add("hide");
+    // unhide the quiz section & restart button
+    sectionQuiz.classList.remove("hide");
+    btnRestart.classList.remove("disable");
 
+    // setup the list of questions/countries to use
     if (selectedGame != "Random" && selectedGame != "Beast") {
         // filter-out by selected region/continent if not playing "random" or "beast mode"
         // https://stackoverflow.com/a/69091932
@@ -79,10 +83,18 @@ function startGame() {
     }
     // call function to shuffle the selectedCountries
     shuffleCountries(selectedCountries);
-    console.log(selectedCountries);
+    console.log(selectedCountries); // TODO: remove
+
+    generateQuestion();
 }
 
 function shuffleCountries(selectedCountries) {
     // randomly shuffle the array of selectedCountries
     return selectedCountries.sort(() => Math.random() - 0.5);
 }
+
+function shuffleOptions(options) {
+    // randomly shuffle the array of options for the given country
+    return options.sort(() => Math.random() - 0.5);
+}
+
