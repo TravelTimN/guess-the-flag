@@ -186,3 +186,20 @@ function checkAnswer(clickedFlag) {
     }
 }
 
+function disableFlags() {
+    // loop through each flag element and disable clicking
+    let flagImgs = document.querySelectorAll(".flag-container img");
+    flagImgs.forEach(img => {
+        img.parentElement.classList.add("hover");
+        img.classList.add("disable");
+    });
+}
+
+function enableFlags() {
+    // loop through each flag element and re-enable clicking
+    let flagImgs = document.querySelectorAll(".flag-container img");
+    flagImgs.forEach(img => {
+        img.parentElement.classList.add("hover");
+        img.classList.remove("disable");
+    });
+}
