@@ -98,3 +98,67 @@ function shuffleOptions(options) {
     return options.sort(() => Math.random() - 0.5);
 }
 
+function generateQuestion() {
+    // start populating the question and flag options
+    spanCountry.innerText = selectedCountries[currentCountryIndex].name;
+
+    let countryOptions;
+    if (selectedGame == "Beast") {
+        // beast mode! choose only the options from the current flag data
+        countryOptions = shuffleOptions(selectedCountries[currentCountryIndex].options);
+    } else if (selectedGame == "Random") {
+        // grab 3 other random countries from ALL regions
+        let ignoreCountry = [selectedCountries[currentCountryIndex].name];  // ignore the current question's country
+        let tempCountries = selectedCountries.filter(country => !ignoreCountry.includes(country.name));  // filter to exclude current country
+        let tempShuffle = tempCountries.sort(() => Math.random() - 0.5);  // shuffle the new array
+        let randomThree = tempShuffle.slice(0, 3);  // grab the first 3 only
+        let newOptions = [selectedCountries[currentCountryIndex]];  // push the current country into the new list
+        randomThree.forEach(country => {
+            // push the 3 new random countries into the list as well
+            newOptions.push(country);
+        });
+        // shuffle the new list of random countries
+        countryOptions = shuffleOptions(newOptions);
+    } else {
+        // grab 3 other random countries from the SELECTED region
+        let ignoreCountry = [selectedCountries[currentCountryIndex].name];  // ignore the current question's country
+        // filter to exclude current country, but only from the selected region
+        let tempCountries = selectedCountries.filter(country => !ignoreCountry.includes(country.name)).filter(country => country.region.includes(selectedGame));
+        let tempShuffle = tempCountries.sort(() => Math.random() - 0.5);  // shuffle the new array
+        let randomThree = tempShuffle.slice(0, 3);  // grab the first 3 only
+        let newOptions = [selectedCountries[currentCountryIndex]];  // push the current country into the new list
+        randomThree.forEach(country => {
+            // push the 3 new random countries into the list as well
+            newOptions.push(country);
+        });
+        // shuffle the new list of random countries
+        countryOptions = shuffleOptions(newOptions);
+    }
+
+    countryOptions.forEach(country => {
+        // TODO: this code will not work because it cannot apply an eventListener (important to showcase)
+        // flagsContainer.innerHTML += `
+        //     <figure class="flag-container">
+        //         <img src="assets/images/flags/${country.iso}.svg" alt="random flag">
+        //         <figcaption>
+        //             <span>${country.name}</span>
+        //         </figcaption>
+        //     </figure>
+        // `;
+
+        let figure = document.createElement("figure");
+        figure.classList.add("flag-container");
+        let img = document.createElement("img");
+        img.src = `assets/images/flags/${country.iso}.svg`;
+        img.alt = "random flag";
+        figure.appendChild(img);
+        let span = document.createElement("span");
+        span.innerText = country.name;
+        let figcaption = document.createElement("figcaption");
+        figcaption.appendChild(span);
+        figure.appendChild(figcaption);
+        flagsContainer.appendChild(figure);
+        figure.addEventListener("click", userClickedFlag);
+    });
+}
+
