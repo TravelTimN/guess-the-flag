@@ -17,9 +17,10 @@
     <!-- header and nav -->
     <header>
         <nav>
-            <a href="" class="btn">Game</a>
+            <a href="" class="btn">Home</a>
+            <span class="btn modal-open" data-modal="rules">Rules</span>
             <a href="" class="btn">Study</a>
-            <span class="btn" id="restart"><i class="fas fa-undo-alt"></i></span>
+            <span class="btn disable" id="restart"><i class="fas fa-undo-alt"></i></span>
         </nav>
     </header>
 
@@ -82,11 +83,30 @@
 
         </section>
 
-        <!-- rules: maybe a dialog instead? -->
-        <section id="rules" class="hide">Rules</section>
+        <!-- rules -->
+        <dialog id="rules">
+            <div class="dialog-container">
+                <div class="modal-header">
+                    <h2>Rules</h2>
+                    <i class="fa-solid fa-xmark fa-xl modal-close"></i>
+                </div>
+                <div class="modal-body">
+                    Some rules blah blah
+                </div>
+                <div class="modal-footer">
+                    <span class="btn modal-close">Close</span>
+                </div>
+            </div>
+        </dialog>
 
         <!-- quiz game area -->
-        <section id="quiz" class="hide">Quiz</section>
+        <section id="quiz" class="hide">
+            <h2>
+                Which flag belongs to
+                <span id="country"></span>?
+            </h2>
+            <div id="flags"></div>
+        </section>
 
         <!-- results -->
         <section id="results" class="hide">Results</section>
