@@ -2,12 +2,57 @@
 
 // global variables
 const sectionWelcome = document.getElementById("welcome");
+const sectionQuiz = document.getElementById("quiz");
+const dialogs = document.querySelectorAll("dialog");
+const btnOpenRules = document.getElementById("modal-open-rules");
+const btnOpenModals = document.querySelectorAll(".modal-open");
+const btnCloseModals = document.querySelectorAll(".modal-close");
 const btnRestart = document.getElementById("restart");
 const polaroids = document.querySelectorAll(".polaroid");
+const spanCountry = document.getElementById("country");
+
+let flagsContainer = document.getElementById("flags");
 let selectedGame;
 let selectedCountries;
+let currentCountryIndex = 0;
+
+// loop modals-open btns and listen for user click events
+btnOpenModals.forEach(btn => {
+    btn.addEventListener("click", function() {
+        // grab the data-modal="" value of the clicked element
+        let selectedBtn = this.dataset.modal;
+        let selectedModal = document.getElementById(selectedBtn);
+        openModal(selectedModal);
+    });
+});
+
+// loop modals-close btn clicks to close all dialogs
+btnCloseModals.forEach(btn => {
+    btn.addEventListener("click", function() {
+        closeModals();
+    });
+});
+
+function openModal(selectedModal) {
+    // open the selected dialog
+    selectedModal.showModal();
+}
+
+function closeModals() {
+    // loop through each dialog and close them
+    dialogs.forEach(dialog => {
+        dialog.classList.add("slideUp");
+        // close once the slide effect has stopped
+        dialog.addEventListener("animationend", function() {
+            dialog.classList.remove("slideUp");
+            dialog.close();
+            dialog.removeEventListener("animationend",  arguments.callee, false);
+        }, false);
+    });
+}
 
 btnRestart.addEventListener("click", function() {
+    // reload the page entirely
     location.reload();
 });
 
