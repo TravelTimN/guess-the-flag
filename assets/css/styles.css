@@ -211,6 +211,7 @@ section#quiz h2 {
 }
 
 #flags figure {
+    display: flex;
     margin: 0.5em auto;
     position: relative;
     cursor: pointer;
@@ -252,6 +253,24 @@ section#quiz h2 {
     width: 90%;
     transform: translate(-50%, -50%);
     text-align: center;
+    text-shadow: 2px 2px 2px #000000;
+}
+
+/* correct / incorrect */
+.correct {
+    color: #66c2a5;
+}
+
+.incorrect {
+    color: #d53e4f;
+}
+
+#flags figure figcaption.correct {
+    background-color: rgba(102, 194, 165, 0.95);
+}
+
+#flags figure figcaption.incorrect {
+    background-color: rgba(213, 62, 79, 0.95);
 }
 
 #flags figure.incorrect {
