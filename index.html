@@ -101,18 +101,27 @@
 
         <!-- quiz game area -->
         <section id="quiz" class="hide">
-            <h2>
-                Which flag belongs to
-                <span id="country"></span>?
-            </h2>
-            <div id="question-results" class="invisible">
-                You've selected
-                <span id="user-selection"></span>.
-                <br>
-                That's
-                <span id="user-result"></span>
+            <div id="quiz-container">
+                <div id="quiz-header">
+                    <span id="game-selected"></span>
+                    <div id="time">Time Left: <span id="time-left">10</span></div>
+                </div>
+                <div class="progress-container">
+                    <div id="progress" class="progress-bar" role="progressbar"></div>
+                </div>
+                <h2>
+                    Which flag belongs to
+                    <span id="country"></span>?
+                </h2>
+                <div id="question-results" class="invisible">
+                    You've selected
+                    <span id="user-selection"></span>.
+                    <br>
+                    That's
+                    <span id="user-result"></span>
+                </div>
+                <div id="flags"></div>
             </div>
-            <div id="flags"></div>
         </section>
 
         <!-- final results -->
