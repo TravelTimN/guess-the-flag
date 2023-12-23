@@ -3,6 +3,7 @@
 // global variables
 const sectionWelcome = document.getElementById("welcome");
 const sectionQuiz = document.getElementById("quiz");
+const selectedGameSpan = document.getElementById("game-selected");
 const dialogs = document.querySelectorAll("dialog");
 const btnOpenRules = document.getElementById("modal-open-rules");
 const btnOpenModals = document.querySelectorAll(".modal-open");
@@ -63,9 +64,43 @@ polaroids.forEach(polaroid => {
     polaroid.addEventListener("click", function() {
         // grab the id from the clicked polaroid
         selectedGame = this.dataset.game;
+        selectedGameSpan.innerText = `Difficulty: ${selectedGame}`;
         startGame();
     });
 });
+
+// timer
+const progress = document.getElementById("progress");
+const timeLeftSpan = document.getElementById("time-left");
+let timeLeft, timer;
+let timeLeftWidth = 100;
+
+function startTimer() {
+    timeLeft = 10;
+    timer = setInterval(function () {
+        countdown(timeLeft);
+    }, 1000);
+}
+
+function countdown(seconds) {
+    if (seconds === 0) {
+        clearInterval(timer);
+        disableFlags();
+        timeLeftSpan.innerHTML = "0";
+    } else {
+        timeLeftWidth = timeLeftWidth - (100 / 10);
+        timeLeft -= 1;
+        timeLeftSpan.innerHTML = timeLeft;
+        progress.style.width = timeLeftWidth + "%";
+        if (timeLeft >= 7) {
+            progress.style.backgroundColor = "#66c2a5";
+        } else if (timeLeft >= 4) {
+            progress.style.backgroundColor = "#fee08b";
+        } else {
+            progress.style.backgroundColor = "#d53e4f";
+        }
+    }
+}
 
 function startGame() {
     // hide the welcome area and game selection
@@ -101,6 +136,9 @@ function shuffleOptions(options) {
 }
 
 function generateQuestion() {
+    // start the timer
+    startTimer();
+
     // start populating the question and flag options
     spanCountry.innerText = selectedCountries[currentCountryIndex].name;
 
@@ -165,10 +203,18 @@ function generateQuestion() {
 }
 
 function userClickedFlag(e) {
-    // user selected something - verify that it's an <img>
+    // user selected something - verify that it's the figure or the image
     // this is to allow disabling additional guesses, but including hover/animation effects
-    if (e.target.nodeName == "IMG") {
-        let clickedFlag = e.target;
+    clearInterval(timer);
+    let clickedFlag;
+    if (e.target.nodeName == "FIGURE") {
+        // use the <img> from the figure
+        clickedFlag = this.getElementsByTagName("img")[0];
+        checkAnswer(clickedFlag);
+        disableFlags();
+    } else if (e.target.nodeName == "IMG") {
+        // use the clicked <img>
+        clickedFlag = e.target;
         checkAnswer(clickedFlag);
         disableFlags();
     }
@@ -197,8 +243,6 @@ function checkAnswer(clickedFlag) {
     spanUserSelection.innerHTML = `<span class="${classToAdd}">${clickedFlagCountry.name}</span>`;
     spanUserResult.innerHTML = `<span class="${classToAdd}">${classToAdd.toUpperCase()} <i class="${iconToAdd}"></i></span>`;
 
-    //
-    addBgColor();
 }
 
 function addBgColor() {
@@ -224,6 +268,8 @@ function removeBgColor() {
 }
 
 function disableFlags() {
+    // apply correct/incorrect bg-colors
+    addBgColor();
     // loop through each flag element and disable clicking
     let flagImgs = document.querySelectorAll(".flag-container img");
     flagImgs.forEach(img => {
@@ -233,6 +279,8 @@ function disableFlags() {
 }
 
 function enableFlags() {
+    // remove correct/incorrect bg-colors
+    removeBgColor();
     // loop through each flag element and re-enable clicking
     let flagImgs = document.querySelectorAll(".flag-container img");
     flagImgs.forEach(img => {
