@@ -10,10 +10,12 @@ const btnCloseModals = document.querySelectorAll(".modal-close");
 const btnRestart = document.getElementById("restart");
 const polaroids = document.querySelectorAll(".polaroid");
 const spanCountry = document.getElementById("country");
+const questionResults = document.getElementById("question-results");
+const spanUserSelection = document.getElementById("user-selection");
+const spanUserResult = document.getElementById("user-result");
 
 let flagsContainer = document.getElementById("flags");
-let selectedGame;
-let selectedCountries;
+let selectedGame, selectedCountries, classToAdd, iconToAdd;
 let currentCountryIndex = 0;
 
 // loop modals-open btns and listen for user click events
@@ -176,14 +178,49 @@ function checkAnswer(clickedFlag) {
     // check if the user's selected choice matches the current country's data
     let countryClicked = clickedFlag.src.slice(-6, -4);  // grab the iso from clicked flag
 
+    questionResults.classList.remove("invisible");
+    let clickedFlagCountry = selectedCountries.find(country => country.iso === countryClicked);
+
     if (countryClicked == selectedCountries[currentCountryIndex].iso) {
-        // match
-        console.log("success!");
+        // is correct
+        classToAdd = "correct";
+        iconToAdd = "fa-solid fa-square-check fa-xl";
     } else {
-        // no match
-        console.log("wrong!");
+        // is not correct
+        classToAdd = "incorrect";
+        iconToAdd = "fa-solid fa-circle-xmark fa-xl";
+
         clickedFlag.parentElement.classList.add("incorrect");
     }
+
+    // update the visible display to the user of their results
+    spanUserSelection.innerHTML = `<span class="${classToAdd}">${clickedFlagCountry.name}</span>`;
+    spanUserResult.innerHTML = `<span class="${classToAdd}">${classToAdd.toUpperCase()} <i class="${iconToAdd}"></i></span>`;
+
+    //
+    addBgColor();
+}
+
+function addBgColor() {
+    // add "correct"/"incorrect" bg-colors to the respective figcaptions
+    let correctCountry = selectedCountries[currentCountryIndex].name;
+    let figSpans = document.querySelectorAll("#flags figure figcaption span");
+    figSpans.forEach(span => {
+        if (span.textContent === correctCountry) {
+            span.parentElement.classList.add("correct");
+        } else {
+            span.parentElement.classList.add("incorrect");
+        }
+    });
+}
+
+function removeBgColor() {
+    // remove "correct"/"incorrect" bg-colors from figcaptions
+    let figcaptions = document.querySelectorAll("#flags figure figcaption");
+    figcaptions.forEach(caption => {
+        caption.classList.remove("correct");
+        caption.classList.remove("incorrect");
+    });
 }
 
 function disableFlags() {
