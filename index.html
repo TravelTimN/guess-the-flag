@@ -90,13 +90,13 @@
             <div class="dialog-container">
                 <div class="modal-header">
                     <h2>Rules</h2>
-                    <i class="fa-solid fa-xmark fa-xl modal-close"></i>
+                    <i class="fa-solid fa-xmark fa-xl modal-close" data-modal="rules"></i>
                 </div>
                 <div class="modal-body">
                     Some rules blah blah
                 </div>
                 <div class="modal-footer">
-                    <span class="btn modal-close">Close</span>
+                    <span class="btn modal-close" data-modal="rules">Close</span>
                 </div>
             </div>
         </dialog>
@@ -154,12 +154,6 @@
 
             <div id="results-container">
                 <!-- these get generated automatically in JavaScript -->
-                <!-- <div class="result-row">
-                    <div class="result-row-content">
-                        <h3><span class="index">${INDEX}.</span> ${COUNTRY}</h3>
-                        <small class="badge ${isCORRECT}">${POINTS} point${isPLURAL}</small>
-                    </div>
-                </div> -->
             </div>
 
             <div id="results-footer">
@@ -167,6 +161,35 @@
                 <h2>Incorrect: <span id="total-incorrect">0</span></h2>
                 <h2>Points: <span id="total-points">0</span></h2>
             </div>
+
+        </section>
+
+        <section id="study-section" class="hide">
+
+            <div id="study-header">
+                <h2>Study the Flags</h2>
+                <h5 class="study-badge">Click a country to view the flag!</h5>
+            </div>
+
+            <div id="study-container">
+                <!-- these get generated automatically in JavaScript -->
+            </div>
+
+            <!-- study dialog with image -->
+            <dialog id="study">
+                <div class="dialog-container">
+                    <div class="modal-header">
+                        <h2 id="study-name">${COUNTRY}</h2>
+                        <i class="fa-solid fa-xmark fa-xl modal-close" data-modal="study"></i>
+                    </div>
+                    <div class="modal-body">
+                        <img src="assets/images/world-flags-sphere.png" alt="Flag of ${COUNTRY}" id="study-flag">
+                    </div>
+                    <div class="modal-footer">
+                        <span class="btn modal-close" data-modal="study">Close</span>
+                    </div>
+                </div>
+            </dialog>
 
         </section>
 
