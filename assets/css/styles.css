@@ -148,6 +148,16 @@ main {
     padding: 1em;
 }
 
+#welcome,
+#quiz-section,
+#final-results {
+    margin: 1em auto;
+    padding: 1em;
+    background-color: #757575;
+    border-radius: 1em;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
 #select-game {
     display: flex;
     flex-wrap: wrap;
@@ -192,9 +202,8 @@ main {
 
 /* question area */
 #quiz-section {
+    padding: 0;
     color: #ffffff;
-    background-color: #757575;
-    border-radius: 1em;
 }
 
 #quiz-container {
@@ -222,21 +231,23 @@ main {
     border-radius: 0.5em;
 }
 
-#game-selected {
-    padding: 0.1em 0.5em;
+#game-selected,
+#time-left,
+#question-tally,
+#total-correct,
+#total-incorrect,
+#total-points {
     border-radius: 0.25em;
-    color: #000000;
-    background-color: #66c2a5;
     font-weight: bold;
+    padding: 0.1em 0.5em;
+    margin: 0;
 }
 
-#time-left {
+#game-selected,
+#time-left,
+#total-correct {
     color: #000000;
     background-color: #66c2a5;
-    padding: 0.1em 0.5em;
-    border-radius: 0.25em;
-    font-weight: bold;
-    transition: all 1s ease-in-out;
 }
 
 /* progress bar */
@@ -271,9 +282,15 @@ main {
     width: 75%;
 }
 
+#quiz-question .question-number,
 #user-selection,
-#country {
+#country,
+.result-row-content h3 .index {
     color: #fee08b;
+}
+
+#quiz-question .question-number::after {
+    content: ".";
 }
 
 /* flags x4 */
@@ -310,7 +327,6 @@ main {
     max-width: 100%;
     object-fit: contain;
 }
-
 
 #flags figure figcaption {
     position: absolute;
@@ -389,11 +405,9 @@ main {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-#question-tally {
-    padding: 0.1em 0.5em;
-    border-radius: 0.25em;
+#question-tally,
+#total-points {
     color: #000000;
-    font-weight: bold;
     background-color: #fee08b;
 }
 
@@ -405,8 +419,85 @@ main {
     width: 100%;
 }
 
-#results-btn {
+/* quiz results */
+#results-header {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    padding: 1em;
+    text-align: center;
+    color: #ffffff;
+    background-color: #3288bd;
+    text-shadow: 2px 2px 2px #000000;
+}
+
+#results-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5em;
+}
+
+.result-row {
+    width: 100%;
+    padding: 0.5em 1em;
+    color: #ffffff;
+    background-color: #212529;
+    border: 1px solid #495057;
+    border-top-width: 0;
+}
+
+.result-row-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.result-row-content h3 {
+    padding: 0.5em;
+    margin: 0;
+    width: 100%;
+}
+
+.badge {
+    margin: 1em;
+    padding: 0.25em 0.75em;
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 50em;
+}
+
+.badge.correct {
+    color: #000000;
+    background-color: #66c2a5;
+}
+
+.badge.incorrect,
+#results-btn,
+#total-incorrect {
+    color: #ffffff;
     background-color: #d53e4f;
+}
+
+#results-footer {
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
+    background-color: #3288bd;
+    padding: 1em;
+}
+
+#results-footer h2 {
+    font-size: 1.5em;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.5em;
+    margin: 0.5em auto;
+    border-radius: 0.5em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* footer */
@@ -430,6 +521,15 @@ footer {
     /* flags */
     #flags figure span {
         font-size: 5vw;
+    }
+
+    /* final results */
+    .result-row .result-row-content {
+        flex-direction: row;
+    }
+
+    .badge {
+        width: unset;
     }
 }
 
@@ -493,6 +593,11 @@ footer {
     #flags figure span {
         font-size: 3vw;
     }
+
+    /* final results */
+    #final-results {
+        max-width: 75vw;
+    }
 }
 
 @media screen and (min-width: 1000px) {
@@ -506,12 +611,22 @@ footer {
     #flags figure span {
         font-size: 2vw;
     }
+
+    /* final results */
+    #final-results {
+        max-width: 60vw;
+    }
 }
 
 @media screen and (min-width: 1200px) {
 
     /* flags */
     #flags {
+        max-width: 50vw;
+    }
+
+    /* final results */
+    #final-results {
         max-width: 50vw;
     }
 }
