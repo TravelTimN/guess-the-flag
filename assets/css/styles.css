@@ -29,14 +29,12 @@ body {
     font-size: 1em;
     padding: 6px 12px;
     margin: 0.5em;
+    display: block;
     text-decoration: none;
     text-align: center;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
-    vertical-align: middle;
-    touch-action: manipulation;
     cursor: pointer;
-    user-select: none;
     border-radius: 0.5em;
     border: 1px solid transparent;
     background-color: #3288bd;
@@ -51,9 +49,10 @@ body {
 
 /* dialogs / modals */
 dialog {
-    margin-top: 3em;
-    min-width: 50vw;
-    max-width: 90vh;
+    position: absolute;
+    top: 0;
+    margin: 3em auto;
+    width: 90vw;
     color: #ffffff;
     background-color: rgba(33, 37, 41, 0.9);
     border-radius: 1em;
@@ -89,17 +88,19 @@ dialog::backdrop {
 .modal-header {
     display: flex;
     flex-shrink: 0;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
     padding: 1em 2em;
     margin: 0;
     border-bottom: 1px solid #495057;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
 }
 
 .modal-header h2 {
     flex-grow: 1;
+    font-size: 2em;
+    font-family: "Bad Script", cursive;
 }
 
 .modal-header i {
@@ -114,6 +115,7 @@ dialog::backdrop {
 .modal-body {
     flex: 1 1 auto;
     padding: 1em;
+    width: 100%;
 }
 
 .modal-footer {
@@ -125,8 +127,8 @@ dialog::backdrop {
     padding: 1em;
     width: 100%;
     border-top: 1px solid #495057;
-    border-bottom-left-radius: 1em;
-    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
 }
 
 /* header / nav */
@@ -581,6 +583,11 @@ footer {
 
     #flags figure span {
         font-size: 4vw;
+    }
+
+    /* study */
+    dialog#study {
+        max-width: 50vw;
     }
 }
 
