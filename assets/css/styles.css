@@ -434,12 +434,14 @@ footer {
 }
 
 @media screen and (min-width: 600px) {
+
     /* polaroids */
     .polaroid {
         width: 200px;
         font-family: "Bad Script", cursive;
         background-color: #ffffff !important;
     }
+
     .polaroid img {
         display: block;
     }
@@ -477,6 +479,7 @@ footer {
 }
 
 @media screen and (min-width: 800px) {
+
     /* quiz section */
     #quiz-section {
         max-width: 80vw;
@@ -486,13 +489,14 @@ footer {
     #flags {
         max-width: 70vw;
     }
-    
+
     #flags figure span {
         font-size: 3vw;
     }
 }
 
 @media screen and (min-width: 1000px) {
+
     /* quiz section */
     #quiz-section {
         max-width: 60vw;
@@ -505,6 +509,7 @@ footer {
 }
 
 @media screen and (min-width: 1200px) {
+
     /* flags */
     #flags {
         max-width: 50vw;
