@@ -115,7 +115,7 @@
                 </div>
                 <!-- quiz question -->
                 <div id="quiz-question">
-                    <span class="question-number"></span>.
+                    <span class="question-number"></span>
                     Which flag belongs to
                     <span id="country"></span>?
                 </div>
@@ -146,7 +146,29 @@
         </section>
 
         <!-- final results -->
-        <section id="final-results" class="hide">Results</section>
+        <section id="final-results" class="hide">
+
+            <div id="results-header">
+                <h2>Quiz Results</h2>
+            </div>
+
+            <div id="results-container">
+                <!-- these get generated automatically in JavaScript -->
+                <!-- <div class="result-row">
+                    <div class="result-row-content">
+                        <h3><span class="index">${INDEX}.</span> ${COUNTRY}</h3>
+                        <small class="badge ${isCORRECT}">${POINTS} point${isPLURAL}</small>
+                    </div>
+                </div> -->
+            </div>
+
+            <div id="results-footer">
+                <h2>Correct: <span id="total-correct">0</span></h2>
+                <h2>Incorrect: <span id="total-incorrect">0</span></h2>
+                <h2>Points: <span id="total-points">0</span></h2>
+            </div>
+
+        </section>
 
     </main>
 
