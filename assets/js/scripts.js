@@ -2,21 +2,29 @@
 
 // global variables
 const sectionWelcome = document.getElementById("welcome");
-const sectionQuiz = document.getElementById("quiz");
+const sectionQuiz = document.getElementById("quiz-section");
 const selectedGameSpan = document.getElementById("game-selected");
 const dialogs = document.querySelectorAll("dialog");
 const btnOpenRules = document.getElementById("modal-open-rules");
 const btnOpenModals = document.querySelectorAll(".modal-open");
 const btnCloseModals = document.querySelectorAll(".modal-close");
-const btnRestart = document.getElementById("restart");
+const btnRestart = document.getElementById("restart-btn");
+const btnNext = document.getElementById("next-btn");
+const btnResults = document.getElementById("results-btn");
 const polaroids = document.querySelectorAll(".polaroid");
 const spanCountry = document.getElementById("country");
+const spanQuestionNumbers = document.querySelectorAll(".question-number");
+const spanTotalQuestions = document.getElementById("total-questions");
 const questionResults = document.getElementById("question-results");
 const spanUserSelection = document.getElementById("user-selection");
 const spanUserResult = document.getElementById("user-result");
+const progress = document.getElementById("progress");
+const timeLeftSpan = document.getElementById("time-left");
 
 let flagsContainer = document.getElementById("flags");
-let selectedGame, selectedCountries, classToAdd, iconToAdd;
+let selectedGame, selectedCountries, timeLeft, timer;
+let timeLeftWidth = 100;
+let userPoints = 0;
 let currentCountryIndex = 0;
 
 // loop modals-open btns and listen for user click events
@@ -64,40 +72,46 @@ polaroids.forEach(polaroid => {
     polaroid.addEventListener("click", function() {
         // grab the id from the clicked polaroid
         selectedGame = this.dataset.game;
-        selectedGameSpan.innerText = `Difficulty: ${selectedGame}`;
+        selectedGameSpan.innerText = selectedGame;
         startGame();
     });
 });
 
 // timer
-const progress = document.getElementById("progress");
-const timeLeftSpan = document.getElementById("time-left");
-let timeLeft, timer;
-let timeLeftWidth = 100;
-
 function startTimer() {
+    // start the timer interval;
     timeLeft = 10;
     timer = setInterval(function () {
         countdown(timeLeft);
     }, 1000);
 }
 
+// countdown
 function countdown(seconds) {
+    // count down from 10, and reduce the progress bar by 10%
     if (seconds === 0) {
-        clearInterval(timer);
+        // time ran out, stop everything
         disableFlags();
-        timeLeftSpan.innerHTML = "0";
+        clearInterval(timer);
+        timeLeftSpan.innerHTML = "00";
+        checkAnswer(null);
     } else {
+        // still time remaining, continue counting down
         timeLeftWidth = timeLeftWidth - (100 / 10);
-        timeLeft -= 1;
-        timeLeftSpan.innerHTML = timeLeft;
         progress.style.width = timeLeftWidth + "%";
+        timeLeft -= 1;
+        timeLeftSpan.innerHTML = `0${timeLeft}`;
+        // dynamically alter the color based on time remaining
+        // can also do "switch (true) {case}" example
         if (timeLeft >= 7) {
             progress.style.backgroundColor = "#66c2a5";
+            timeLeftSpan.style.backgroundColor = "#66c2a5";
         } else if (timeLeft >= 4) {
             progress.style.backgroundColor = "#fee08b";
+            timeLeftSpan.style.backgroundColor = "#fee08b";
         } else {
             progress.style.backgroundColor = "#d53e4f";
+            timeLeftSpan.style.backgroundColor = "#d53e4f";
         }
     }
 }
@@ -120,7 +134,9 @@ function startGame() {
     }
     // call function to shuffle the selectedCountries
     shuffleCountries(selectedCountries);
-    console.log(selectedCountries); // TODO: remove
+
+    // display the total number of flag questions
+    spanTotalQuestions.innerText = selectedCountries.length;
 
     generateQuestion();
 }
@@ -138,6 +154,11 @@ function shuffleOptions(options) {
 function generateQuestion() {
     // start the timer
     startTimer();
+
+    // display the current question number
+    spanQuestionNumbers.forEach(span => {
+        span.innerText = currentCountryIndex + 1;
+    });
 
     // start populating the question and flag options
     spanCountry.innerText = selectedCountries[currentCountryIndex].name;
@@ -206,6 +227,8 @@ function userClickedFlag(e) {
     // user selected something - verify that it's the figure or the image
     // this is to allow disabling additional guesses, but including hover/animation effects
     clearInterval(timer);
+
+    // identify what the user clicked (figure or img)
     let clickedFlag;
     if (e.target.nodeName == "FIGURE") {
         // use the <img> from the figure
@@ -221,28 +244,73 @@ function userClickedFlag(e) {
 }
 
 function checkAnswer(clickedFlag) {
+    let countryClicked, classToAdd, iconToAdd;
+    if (clickedFlag != null) {
+        // grab the iso from clicked flag (if not null)
+        countryClicked = clickedFlag.src.slice(-6, -4);
+    }
+    
     // check if the user's selected choice matches the current country's data
-    let countryClicked = clickedFlag.src.slice(-6, -4);  // grab the iso from clicked flag
-
-    questionResults.classList.remove("invisible");
-    let clickedFlagCountry = selectedCountries.find(country => country.iso === countryClicked);
-
     if (countryClicked == selectedCountries[currentCountryIndex].iso) {
         // is correct
         classToAdd = "correct";
         iconToAdd = "fa-solid fa-square-check fa-xl";
+
+        // increment the user's point value with the remaining time left on the countdown
+        userPoints += timeLeft;
     } else {
         // is not correct
         classToAdd = "incorrect";
         iconToAdd = "fa-solid fa-circle-xmark fa-xl";
 
-        clickedFlag.parentElement.classList.add("incorrect");
+        if (clickedFlag != null) {
+            clickedFlag.parentElement.classList.add("incorrect");
+        }
     }
 
     // update the visible display to the user of their results
-    spanUserSelection.innerHTML = `<span class="${classToAdd}">${clickedFlagCountry.name}</span>`;
-    spanUserResult.innerHTML = `<span class="${classToAdd}">${classToAdd.toUpperCase()} <i class="${iconToAdd}"></i></span>`;
+    if (clickedFlag == null) {
+        // user didn't click anything
+        spanUserSelection.innerText = "nothing";
+    } else {
+        let clickedFlagCountry = selectedCountries.find(country => country.iso === countryClicked);
+        spanUserSelection.innerText = clickedFlagCountry.name;
+    }
+    spanUserResult.innerHTML = `<span class="${classToAdd}">${classToAdd.toUpperCase()} <i class="${iconToAdd}"></i></span>.`;
+    // show the results to the user
+    questionResults.classList.remove("hide");
 
+    // 
+    if (currentCountryIndex + 1 === selectedCountries.length) {
+        // there are no more questions - stop here
+        btnResults.classList.remove("hide");
+    } else {
+        // there are more questions - keep going / show the next button
+        btnNext.classList.remove("hide");
+    }
+}
+
+btnNext.addEventListener("click", resetQuestion);
+
+function resetQuestion() {
+    // reset progress bar
+    timeLeftWidth = 100;
+    progress.style.backgroundColor = "#66c2a5";
+    progress.style.width = timeLeftWidth + "%";
+    // hide elements
+    btnNext.classList.add("hide");
+    questionResults.classList.add("hide");
+    // increment array index +1
+    currentCountryIndex++;
+    // reset time left and styles
+    timeLeftSpan.innerHTML = "10";
+    timeLeftSpan.style.backgroundColor = "#66c2a5";
+    // empty the previous values
+    flagsContainer.innerHTML = "";
+    spanUserSelection.innerText = "";
+    spanUserResult.innerHTML = "";
+    // grab the next question
+    generateQuestion();
 }
 
 function addBgColor() {
