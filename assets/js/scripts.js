@@ -4,11 +4,13 @@
 const sectionWelcome = document.getElementById("welcome");
 const sectionQuiz = document.getElementById("quiz-section");
 const sectionFinalResults = document.getElementById("final-results");
+const sectionStudy = document.getElementById("study-section");
 const selectedGameSpan = document.getElementById("game-selected");
 const dialogs = document.querySelectorAll("dialog");
 const btnOpenRules = document.getElementById("modal-open-rules");
 const btnOpenModals = document.querySelectorAll(".modal-open");
 const btnCloseModals = document.querySelectorAll(".modal-close");
+const btnStudy = document.getElementById("study-btn");
 const btnRestart = document.getElementById("restart-btn");
 const btnNext = document.getElementById("next-btn");
 const btnResults = document.getElementById("results-btn");
@@ -27,6 +29,7 @@ const timeLeftSpan = document.getElementById("time-left");
 
 let flagsContainer = document.getElementById("flags");
 let resultsContainer = document.getElementById("results-container");
+let studyContainer = document.getElementById("study-container");
 let selectedGame, selectedCountries, timeLeft, timer;
 let timeLeftWidth = 100;
 let userPoints = 0;
@@ -130,6 +133,8 @@ function startGame() {
     // unhide the quiz section & restart button
     sectionQuiz.classList.remove("hide");
     btnRestart.classList.remove("disable");
+    // disable the study button
+    btnStudy.classList.add("disable");
 
     // setup the list of questions/countries to use
     if (selectedGame != "Random" && selectedGame != "Beast") {
@@ -339,6 +344,7 @@ function resetQuestion() {
 btnResults.addEventListener("click", showResults);
 
 function showResults() {
+    // shows the user their results (update correct/incorrect/total points)
     spanTotalCorrect.innerText = totalCorrect;
     spanTotalIncorrect.innerText = totalIncorrect;
     spanTotalPoints.innerText = userPoints;
@@ -389,3 +395,36 @@ function enableFlags() {
         img.classList.remove("disable");
     });
 }
+
+btnStudy.addEventListener("click", generateStudy);
+
+function generateStudy() {
+    // when user wants to study the flags, generate a dynamic list of all countries
+    countries.forEach(country => {
+        studyContainer.innerHTML += `
+        <div class="study-row modal-open" data-modal="study" data-country="${country.name}" data-iso="${country.iso}">
+            ${country.name}
+        </div>`;
+    });
+    // disable the study button and show it
+    btnStudy.classList.add("disable");
+    sectionStudy.classList.remove("hide");
+    // hide the welcome section
+    sectionWelcome.classList.add("hide");
+    // enable the restart button
+    btnRestart.classList.remove("disable");
+}
+
+// listen to a user clicking within the studyContainer
+// won't work in forloop of modal-open elements since these are added dynamically after DOM content loaded
+// https://stackoverflow.com/a/67765423
+studyContainer.addEventListener("click", function (e) {
+    if (e.target.classList.contains("modal-open")) {
+        let countryName = e.target.dataset.country;
+        let countryIso = e.target.dataset.iso;
+        document.getElementById("study-name").innerText = countryName;
+        document.getElementById("study-flag").src = `assets/images/flags/${countryIso}.svg`;
+        document.getElementById("study-flag").alt = `Flag of ${countryName}`;
+        document.getElementById("study").showModal();
+    }
+});
