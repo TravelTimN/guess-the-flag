@@ -163,34 +163,44 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    border-radius: inherit;
+    padding: 2em;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* polaroids */
 
 /* colors from ColorBrewer2.org: diverging*10 */
-.polaroid:nth-child(1) {background-color: #9e0142;}
-.polaroid:nth-child(2) {background-color: #d53e4f;}
-.polaroid:nth-child(3) {background-color: #f46d43;}
-.polaroid:nth-child(4) {background-color: #fee08b;}
-.polaroid:nth-child(5) {background-color: #66c2a5;}
-.polaroid:nth-child(6) {background-color: #3288bd;}
-.polaroid:nth-child(7) {background-color: #5e4fa2;}
+.polaroid:nth-child(1) img {border: 0.5em outset #9e0142;}
+.polaroid:nth-child(2) img {border: 0.5em outset #d53e4f;}
+.polaroid:nth-child(3) img {border: 0.5em outset #f46d43;}
+.polaroid:nth-child(4) img {border: 0.5em outset #fee08b;}
+.polaroid:nth-child(5) img {border: 0.5em outset #66c2a5;}
+.polaroid:nth-child(6) img {border: 0.5em outset #3288bd;}
+.polaroid:nth-child(7) img {border: 0.5em outset #5e4fa2;}
 
 .polaroid {
-    width: 250px;
+    --polaroid-width: 60vw;
+    min-width: var(--polaroid-width);
+    max-width: var(--polaroid-width);
     text-align: center;
-    font-size: 2em;
-    padding: 0.25em;
+    padding: 0.5em;
     margin: 0.5em auto;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 8px 20px #000000;
     cursor: pointer;
+    background-color: #ffffff;
+    box-shadow: 0 8px 20px #000000;
+    transition: all 0.3s ease-in-out;
 }
 
 .polaroid img {
-    display: none;
     border-radius: 4px;
     width: 100%;
+}
+
+.polaroid figcaption {
+    font-weight: bold;
+    font-size: 2em;
+    font-family: "Bad Script", cursive;
 }
 
 .polaroid:hover,
@@ -509,13 +519,14 @@ footer {
 
 /* media queries */
 @media screen and (min-width: 450px) {
+
     #select-game {
         flex-direction: row;
     }
 
     /* polaroids */
     .polaroid {
-        width: 200px;
+        --polaroid-width: 35vw;
     }
 
     /* flags */
@@ -537,13 +548,8 @@ footer {
 
     /* polaroids */
     .polaroid {
-        width: 200px;
-        font-family: "Bad Script", cursive;
-        background-color: #ffffff !important;
-    }
-
-    .polaroid img {
-        display: block;
+        --polaroid-width: 25vw;
+        margin: -20px auto;
     }
 
     .polaroid.left {
@@ -579,6 +585,11 @@ footer {
 }
 
 @media screen and (min-width: 800px) {
+
+    /* polaroids */
+    .polaroid {
+        --polaroid-width: 20vw;
+    }
 
     /* quiz section */
     #quiz-section {
@@ -620,6 +631,12 @@ footer {
 
 @media screen and (min-width: 1200px) {
 
+    /* polaroids */
+    .polaroid {
+        --polaroid-width: 13vw;
+        margin: 0 auto;
+    }
+
     /* flags */
     #flags {
         max-width: 50vw;
@@ -630,6 +647,9 @@ footer {
         max-width: 50vw;
     }
 }
+
+
+/* hide / invisible / disable */
 
 .hide {
     display: none;
