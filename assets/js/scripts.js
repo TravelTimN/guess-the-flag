@@ -44,10 +44,13 @@ btnOpenModals.forEach(btn => {
     });
 });
 
-// loop modals-close btn clicks to close all dialogs
+// loop modals-close btns and listen for user click events
 btnCloseModals.forEach(btn => {
     btn.addEventListener("click", function () {
-        closeModals();
+        // grab the data-modal="" value of the clicked element
+        let selectedBtn = this.dataset.modal;
+        let selectedModal = document.getElementById(selectedBtn);
+        closeModal(selectedModal);
     });
 });
 
@@ -56,17 +59,15 @@ function openModal(selectedModal) {
     selectedModal.showModal();
 }
 
-function closeModals() {
-    // loop through each dialog and close them
-    dialogs.forEach(dialog => {
-        dialog.classList.add("slideUp");
-        // close once the slide effect has stopped
-        dialog.addEventListener("animationend", function () {
-            dialog.classList.remove("slideUp");
-            dialog.close();
-            dialog.removeEventListener("animationend", arguments.callee, false);
-        }, false);
-    });
+function closeModal(selectedModal) {
+    // close the selected dialog
+    selectedModal.classList.add("slideUp");
+    // close once the slide effect animation has ended
+    selectedModal.addEventListener("animationend", function () {
+        selectedModal.classList.remove("slideUp");
+        selectedModal.close();
+        selectedModal.removeEventListener("animationend", arguments.callee, false);
+    }, false);
 }
 
 btnRestart.addEventListener("click", function () {
