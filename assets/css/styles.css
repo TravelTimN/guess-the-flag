@@ -116,6 +116,7 @@ dialog::backdrop {
     flex: 1 1 auto;
     padding: 1em;
     width: 100%;
+    text-align: center;
 }
 
 .modal-footer {
@@ -533,7 +534,6 @@ main {
 
 img#study-flag {
     max-height: 50vh;
-    width: 100%;
 }
 
 .result-row-content {
