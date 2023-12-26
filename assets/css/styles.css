@@ -207,12 +207,18 @@ main {
 
 #welcome,
 #quiz-section,
-#final-results {
+#final-results,
+#study-section {
     margin: 1em auto;
     padding: 1em;
     background-color: #757575;
     border-radius: 1em;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
+#study-container {
+    column-count: 1;
+    gap: 0;
 }
 
 #select-game {
@@ -221,7 +227,7 @@ main {
     justify-content: center;
     align-items: center;
     border-radius: inherit;
-    padding: 2em;
+    padding: 2em 0;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -279,7 +285,8 @@ main {
     flex-direction: column;
 }
 
-#quiz-header {
+#quiz-header,
+#study-header {
     padding: 1em;
     width: 100%;
     display: flex;
@@ -487,7 +494,8 @@ main {
 }
 
 /* quiz results */
-#results-header {
+#results-header,
+#study-header {
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
     padding: 1em;
@@ -503,13 +511,29 @@ main {
     border-radius: 0.5em;
 }
 
-.result-row {
+.result-row,
+.study-row {
     width: 100%;
     padding: 0.5em 1em;
     color: #ffffff;
     background-color: #212529;
     border: 1px solid #495057;
     border-top-width: 0;
+}
+
+.study-row {
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.study-row:hover {
+    background-color: rgba(50, 136, 189, 0.5);
+}
+
+img#study-flag {
+    max-height: 50vh;
+    width: 100%;
 }
 
 .result-row-content {
@@ -525,6 +549,7 @@ main {
     width: 100%;
 }
 
+/* badges */
 .badge {
     margin: 1em;
     padding: 0.25em 0.75em;
@@ -545,6 +570,15 @@ main {
 #total-incorrect {
     color: #ffffff;
     background-color: #d53e4f;
+}
+
+.study-badge {
+    margin: 0.5em auto;
+    padding: 0.5em 2em;
+    font-weight: bold;
+    white-space: unset;
+    border-radius: 2em;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 #results-footer {
@@ -715,6 +749,11 @@ footer {
     #final-results {
         max-width: 75vw;
     }
+
+    /* study */
+    #study-container {
+        column-count: 2;
+    }
 }
 
 @media screen and (min-width: 1000px) {
@@ -761,6 +800,11 @@ footer {
     /* final results */
     #final-results {
         max-width: 50vw;
+    }
+
+    /* study */
+    #study-container {
+        column-count: 3;
     }
 }
 
