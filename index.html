@@ -20,7 +20,7 @@
             <a href="" class="btn">Home</a>
             <span class="btn modal-open" data-modal="rules">Rules</span>
             <a href="" class="btn">Study</a>
-            <span class="btn disable" id="restart"><i class="fas fa-undo-alt"></i></span>
+            <span class="btn disable" id="restart-btn"><i class="fas fa-undo-alt"></i></span>
         </nav>
     </header>
 
@@ -100,27 +100,46 @@
         </dialog>
 
         <!-- quiz game area -->
-        <section id="quiz" class="hide">
+        <section id="quiz-section" class="hide">
             <div id="quiz-container">
+                <!-- quiz header -->
                 <div id="quiz-header">
-                    <span id="game-selected"></span>
-                    <div id="time">Time Left: <span id="time-left">10</span></div>
+                    <div id="level">Level: <span id="game-selected"></span></div>
+                    <div id="time">Time: <span id="time-left">10</span></div>
                 </div>
+                <!-- progress bar -->
                 <div class="progress-container">
                     <div id="progress" class="progress-bar" role="progressbar"></div>
                 </div>
-                <h2>
+                <!-- quiz question -->
+                <div id="quiz-question">
+                    <span class="question-number"></span>.
                     Which flag belongs to
                     <span id="country"></span>?
-                </h2>
-                <div id="question-results" class="invisible">
+                </div>
+                <!-- question results -->
+                <div id="question-results" class="hide">
                     You've selected
                     <span id="user-selection"></span>.
                     <br>
                     That's
                     <span id="user-result"></span>
                 </div>
+                <!-- quiz flags (x4) -->
                 <div id="flags"></div>
+                <!-- quiz footer -->
+                <div id="quiz-footer">
+                    <div id="question-tracker">
+                        Question:
+                        <span id="question-tally">
+                            <span class="question-number"></span>
+                            of
+                            <span id="total-questions"></span>
+                        </span>
+                    </div>
+                    <span id="next-btn" class="btn hide">Next</span>
+                    <span id="results-btn" class="btn hide">Results</span>
+                </div>
             </div>
         </section>
 
