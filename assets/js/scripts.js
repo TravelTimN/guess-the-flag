@@ -3,6 +3,7 @@
 // global variables
 const sectionWelcome = document.getElementById("welcome");
 const sectionQuiz = document.getElementById("quiz-section");
+const sectionFinalResults = document.getElementById("final-results");
 const selectedGameSpan = document.getElementById("game-selected");
 const dialogs = document.querySelectorAll("dialog");
 const btnOpenRules = document.getElementById("modal-open-rules");
@@ -18,13 +19,19 @@ const spanTotalQuestions = document.getElementById("total-questions");
 const questionResults = document.getElementById("question-results");
 const spanUserSelection = document.getElementById("user-selection");
 const spanUserResult = document.getElementById("user-result");
+const spanTotalCorrect = document.getElementById("total-correct");
+const spanTotalIncorrect = document.getElementById("total-incorrect");
+const spanTotalPoints = document.getElementById("total-points");
 const progress = document.getElementById("progress");
 const timeLeftSpan = document.getElementById("time-left");
 
 let flagsContainer = document.getElementById("flags");
+let resultsContainer = document.getElementById("results-container");
 let selectedGame, selectedCountries, timeLeft, timer;
 let timeLeftWidth = 100;
 let userPoints = 0;
+let totalCorrect = 0;
+let totalIncorrect = 0;
 let currentCountryIndex = 0;
 
 // loop modals-open btns and listen for user click events
@@ -244,7 +251,7 @@ function userClickedFlag(e) {
 }
 
 function checkAnswer(clickedFlag) {
-    let countryClicked, classToAdd, iconToAdd;
+    let countryClicked, classToAdd, iconToAdd, pointsToAdd, isPlural;
     if (clickedFlag != null) {
         // grab the iso from clicked flag (if not null)
         countryClicked = clickedFlag.src.slice(-6, -4);
@@ -253,15 +260,19 @@ function checkAnswer(clickedFlag) {
     // check if the user's selected choice matches the current country's data
     if (countryClicked == selectedCountries[currentCountryIndex].iso) {
         // is correct
+        totalCorrect++;
         classToAdd = "correct";
         iconToAdd = "fa-solid fa-square-check fa-xl";
 
         // increment the user's point value with the remaining time left on the countdown
-        userPoints += timeLeft;
+        pointsToAdd = timeLeft
+        userPoints += pointsToAdd;
     } else {
         // is not correct
+        totalIncorrect++;
         classToAdd = "incorrect";
         iconToAdd = "fa-solid fa-circle-xmark fa-xl";
+        pointsToAdd = 0;
 
         if (clickedFlag != null) {
             clickedFlag.parentElement.classList.add("incorrect");
@@ -280,7 +291,18 @@ function checkAnswer(clickedFlag) {
     // show the results to the user
     questionResults.classList.remove("hide");
 
-    // 
+    // append the result of this question to the final-results list
+    isPlural = pointsToAdd != 1 ? "s" : "";  // TODO: show single-line ternary operator
+    // build a result-row for each round/question
+    resultsContainer.innerHTML += `
+    <div class="result-row">
+        <div class="result-row-content">
+            <h3><span class="index">${currentCountryIndex + 1}.</span> ${selectedCountries[currentCountryIndex].name}</h3>
+            <small class="badge ${classToAdd}">${pointsToAdd} point${isPlural}</small>
+        </div>
+    </div>`;
+
+    // only proceed if there are more questions to cycle
     if (currentCountryIndex + 1 === selectedCountries.length) {
         // there are no more questions - stop here
         btnResults.classList.remove("hide");
@@ -311,6 +333,16 @@ function resetQuestion() {
     spanUserResult.innerHTML = "";
     // grab the next question
     generateQuestion();
+}
+
+btnResults.addEventListener("click", showResults);
+
+function showResults() {
+    spanTotalCorrect.innerText = totalCorrect;
+    spanTotalIncorrect.innerText = totalIncorrect;
+    spanTotalPoints.innerText = userPoints;
+    sectionFinalResults.classList.remove("hide");
+    sectionQuiz.classList.add("hide");
 }
 
 function addBgColor() {
