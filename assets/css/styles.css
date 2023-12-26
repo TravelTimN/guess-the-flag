@@ -134,14 +134,69 @@ dialog::backdrop {
 /* header / nav */
 header {
     width: 100%;
+    height: 4em;
     background-color: rgba(0, 0, 0, 0.75);
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
+h1#logo {
+    font-family: "Bad Script", cursive;
+    font-size: 10vw;
+    margin: 0.25em 0;
+    white-space: nowrap;
+    user-select: none;
+    border-radius: 0.5em;
+    border: 1px solid transparent;
+    line-height: 1;
+    color: #ffffff;
+}
+
+/* navbar dropdown toggle */
 nav {
+    position: absolute;
     width: 100%;
+    left: 0;
+    padding: 0 1em;
+    box-shadow: 0 2px 2px #ffffff;
+    display: none;
+    top: 4em;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 100;
+}
+
+/* Nav toggle */
+#nav-toggle:checked~nav {
     display: flex;
+}
+
+#nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    font-size: 7vw;
+    color: #ffffff;
+    margin: 0 0.5em;
+    cursor: pointer;
+}
+
+nav ul#menu {
+    letter-spacing: 4px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
-    flex-direction: row;
+    margin: 0 auto;
+    width: 100%;
+}
+
+nav ul#menu > li {
+    line-height: 2;
+    width: 100%;
 }
 
 /* main / sections */
@@ -522,6 +577,19 @@ footer {
 /* media queries */
 @media screen and (min-width: 450px) {
 
+    /* header/nav */
+    h1#logo {
+        font-size: 7vw;
+    }
+
+    nav ul#menu {
+        flex-direction: row;
+    }
+
+    .nav-toggle-label {
+        font-size: 5vw;
+    }
+
     #select-game {
         flex-direction: row;
     }
@@ -547,6 +615,32 @@ footer {
 }
 
 @media screen and (min-width: 600px) {
+
+    /* header/nav */
+    h1#logo {
+        font-size: 5vw;
+    }
+
+    nav {
+        display: flex;
+        position: unset;
+        width: fit-content;
+        margin: 0;
+        box-shadow: none;
+        background-color: unset;
+    }
+
+    #menu {
+        display: flex;
+    }
+
+    .nav-toggle-label {
+        display: none;
+    }
+
+    nav ul#menu > li {
+        margin: 0 1em;
+    }
 
     /* polaroids */
     .polaroid {
@@ -593,6 +687,11 @@ footer {
 
 @media screen and (min-width: 800px) {
 
+    /* header/nav */
+    h1#logo {
+        font-size: 4vw;
+    }
+
     /* polaroids */
     .polaroid {
         --polaroid-width: 20vw;
@@ -620,6 +719,11 @@ footer {
 
 @media screen and (min-width: 1000px) {
 
+    /* header/nav */
+    h1#logo {
+        font-size: 3vw;
+    }
+
     /* quiz section */
     #quiz-section {
         max-width: 60vw;
@@ -637,6 +741,11 @@ footer {
 }
 
 @media screen and (min-width: 1200px) {
+
+    /* header/nav */
+    h1#logo {
+        font-size: 2vw;
+    }
 
     /* polaroids */
     .polaroid {
