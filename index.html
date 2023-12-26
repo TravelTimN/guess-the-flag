@@ -18,11 +18,18 @@
 <body>
     <!-- header and nav -->
     <header>
+        <h1 id="logo">Guess the Flag</h1>
+        <!-- responsive checkbox navbar using CSS -->
+        <input type="checkbox" id="nav-toggle" name="nav-toggle">
+        <label for="nav-toggle" class="nav-toggle-label">
+            <i class="fa-solid fa-bars fa-xl"></i>
+        </label>
         <nav>
-            <a href="" class="btn">Home</a>
-            <span class="btn modal-open" data-modal="rules">Rules</span>
-            <a href="" class="btn">Study</a>
-            <span class="btn disable" id="restart-btn"><i class="fas fa-undo-alt"></i></span>
+            <ul id="menu">
+                <li><span class="btn modal-open" data-modal="rules">Rules</span></li>
+                <li><span class="btn" id="study-btn">Study</span></li>
+                <li><span class="btn disable" id="restart-btn"><i class="fas fa-undo-alt"></i></span></li>
+            </ul>
         </nav>
     </header>
 
