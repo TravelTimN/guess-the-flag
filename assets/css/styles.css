@@ -49,7 +49,7 @@ body {
 
 /* dialogs / modals */
 dialog {
-    position: absolute;
+    position: fixed;
     top: 0;
     margin: 3em auto;
     width: 90vw;
@@ -341,7 +341,7 @@ main {
 
 /* quiz question */
 #quiz-question {
-    margin: 1em;
+    margin: 1em auto;
     font-size: 1.5em;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
@@ -352,6 +352,7 @@ main {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 0.5em;
     padding: 1em;
+    margin: 1em auto;
     width: 75%;
 }
 
@@ -372,8 +373,7 @@ main {
     align-items: center;
     justify-content: center;
     grid-gap: 0 1em;
-    margin-bottom: 1em;
-    padding: 1em;
+    margin: 1em auto;
 }
 
 #flags figure {
@@ -532,6 +532,7 @@ main {
 
 img#study-flag {
     max-height: 50vh;
+    max-width: 100%;
 }
 
 .result-row-content {
@@ -715,6 +716,10 @@ footer {
     dialog#study {
         max-width: 50vw;
     }
+
+    #study-container {
+        column-count: 2;
+    }
 }
 
 @media screen and (min-width: 800px) {
@@ -750,7 +755,7 @@ footer {
 
     /* study */
     #study-container {
-        column-count: 2;
+        column-count: 3;
     }
 }
 
@@ -774,6 +779,11 @@ footer {
     /* final results */
     #final-results {
         max-width: 60vw;
+    }
+
+    /* study */
+    #study-container {
+        column-count: 4;
     }
 }
 
@@ -802,7 +812,7 @@ footer {
 
     /* study */
     #study-container {
-        column-count: 3;
+        column-count: 5;
     }
 }
 
