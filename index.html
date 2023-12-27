@@ -35,7 +35,8 @@
 
     <!-- main -->
     <main>
-        <!-- welcome & about -->
+
+        <!-- section: welcome & about -->
         <section id="welcome">
 
             <aside id="select-game">
@@ -92,23 +93,7 @@
 
         </section>
 
-        <!-- rules -->
-        <dialog id="rules">
-            <div class="dialog-container">
-                <div class="modal-header">
-                    <h2>Rules</h2>
-                    <i class="fa-solid fa-xmark fa-xl modal-close" data-modal="rules"></i>
-                </div>
-                <div class="modal-body">
-                    Some rules blah blah
-                </div>
-                <div class="modal-footer">
-                    <span class="btn modal-close" data-modal="rules">Close</span>
-                </div>
-            </div>
-        </dialog>
-
-        <!-- quiz game area -->
+        <!-- section: quiz game area -->
         <section id="quiz-section" class="hide">
             <div id="quiz-container">
                 <!-- quiz header -->
@@ -152,7 +137,7 @@
             </div>
         </section>
 
-        <!-- final results -->
+        <!-- section: final results -->
         <section id="final-results" class="hide">
 
             <div id="results-header">
@@ -171,6 +156,7 @@
 
         </section>
 
+        <!-- section: study the flags -->
         <section id="study-section" class="hide">
 
             <div id="study-header">
@@ -182,23 +168,39 @@
                 <!-- these get generated automatically in JavaScript -->
             </div>
 
-            <!-- study dialog with image -->
-            <dialog id="study">
-                <div class="dialog-container">
-                    <div class="modal-header">
-                        <h2 id="study-name">${COUNTRY}</h2>
-                        <i class="fa-solid fa-xmark fa-xl modal-close" data-modal="study"></i>
-                    </div>
-                    <div class="modal-body">
-                        <img src="assets/images/world-flags-sphere.png" alt="Flag of ${COUNTRY}" id="study-flag">
-                    </div>
-                    <div class="modal-footer">
-                        <span class="btn modal-close" data-modal="study">Close</span>
-                    </div>
-                </div>
-            </dialog>
-
         </section>
+
+        <!-- dialog: rules -->
+        <dialog id="rules">
+            <div class="dialog-container">
+                <div class="modal-header">
+                    <h2>Rules</h2>
+                    <i class="fa-solid fa-xmark fa-xl modal-close" data-modal="rules"></i>
+                </div>
+                <div class="modal-body">
+                    Some rules blah blah
+                </div>
+                <div class="modal-footer">
+                    <span class="btn modal-close" data-modal="rules">Close</span>
+                </div>
+            </div>
+        </dialog>
+
+        <!-- dialog: study flag images -->
+        <dialog id="study">
+            <div class="dialog-container">
+                <div class="modal-header">
+                    <h2 id="study-name">${COUNTRY}</h2>
+                    <i class="fa-solid fa-xmark fa-xl modal-close" data-modal="study"></i>
+                </div>
+                <div class="modal-body">
+                    <img src="assets/images/world-flags-sphere.png" alt="Flag of ${COUNTRY}" id="study-flag">
+                </div>
+                <div class="modal-footer">
+                    <span class="btn modal-close" data-modal="study">Close</span>
+                </div>
+            </div>
+        </dialog>
 
     </main>
 
