@@ -185,7 +185,6 @@ nav {
 }
 
 nav ul#menu {
-    letter-spacing: 4px;
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -196,7 +195,6 @@ nav ul#menu {
 }
 
 nav ul#menu > li {
-    line-height: 2;
     width: 100%;
 }
 
