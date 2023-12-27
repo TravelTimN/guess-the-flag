@@ -6,8 +6,6 @@ const sectionQuiz = document.getElementById("quiz-section");
 const sectionFinalResults = document.getElementById("final-results");
 const sectionStudy = document.getElementById("study-section");
 const selectedGameSpan = document.getElementById("game-selected");
-const dialogs = document.querySelectorAll("dialog");
-const btnOpenRules = document.getElementById("modal-open-rules");
 const btnOpenModals = document.querySelectorAll(".modal-open");
 const btnCloseModals = document.querySelectorAll(".modal-close");
 const btnStudy = document.getElementById("study-btn");
@@ -65,12 +63,11 @@ function openModal(selectedModal) {
 function closeModal(selectedModal) {
     // close the selected dialog
     selectedModal.classList.add("slideUp");
-    // close once the slide effect animation has ended
-    selectedModal.addEventListener("animationend", function () {
+    // slide back up, then close off-screen
+    setTimeout(() => {
         selectedModal.classList.remove("slideUp");
         selectedModal.close();
-        selectedModal.removeEventListener("animationend", arguments.callee, false);
-    }, false);
+    }, 450); // CSS animation = 0.5s // close just before finishing to avoid slight glitch
 }
 
 btnRestart.addEventListener("click", function () {
@@ -271,7 +268,7 @@ function checkAnswer(clickedFlag) {
         iconToAdd = "fa-solid fa-square-check fa-xl";
 
         // increment the user's point value with the remaining time left on the countdown
-        pointsToAdd = timeLeft
+        pointsToAdd = timeLeft;
         userPoints += pointsToAdd;
     } else {
         // is not correct
@@ -365,15 +362,6 @@ function addBgColor() {
     });
 }
 
-function removeBgColor() {
-    // remove "correct"/"incorrect" bg-colors from figcaptions
-    let figcaptions = document.querySelectorAll("#flags figure figcaption");
-    figcaptions.forEach(caption => {
-        caption.classList.remove("correct");
-        caption.classList.remove("incorrect");
-    });
-}
-
 function disableFlags() {
     // apply correct/incorrect bg-colors
     addBgColor();
@@ -382,17 +370,6 @@ function disableFlags() {
     flagImgs.forEach(img => {
         img.parentElement.classList.add("hover");
         img.classList.add("disable");
-    });
-}
-
-function enableFlags() {
-    // remove correct/incorrect bg-colors
-    removeBgColor();
-    // loop through each flag element and re-enable clicking
-    let flagImgs = document.querySelectorAll(".flag-container img");
-    flagImgs.forEach(img => {
-        img.parentElement.classList.add("hover");
-        img.classList.remove("disable");
     });
 }
 
