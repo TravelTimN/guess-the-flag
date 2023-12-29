@@ -125,43 +125,60 @@ polaroids.forEach(polaroid => {
     });
 });
 
-// timer
-function startTimer() {
-    // start the timer interval;
+// interval: counting down
+function startCountDown() {
+    // start the countDown interval;
     timeLeft = 10;
-    timer = setInterval(function () {
-        countdown(timeLeft);
+    timerDown = setInterval(function () {
+        countDown(timeLeft);
     }, 1000);
 }
 
-// countdown
-function countdown(seconds) {
+// countDown
+function countDown(seconds) {
     // count down from 10, and reduce the progress bar by 10%
     if (seconds === 0) {
         // time ran out, stop everything
         disableFlags();
-        clearInterval(timer);
-        timeLeftSpan.innerHTML = "00";
+        clearInterval(timerDown);
+        spanTimeLeft.innerHTML = "00";
         checkAnswer(null);
     } else {
         // still time remaining, continue counting down
         timeLeftWidth = timeLeftWidth - (100 / 10);
         progress.style.width = timeLeftWidth + "%";
         timeLeft -= 1;
-        timeLeftSpan.innerHTML = `0${timeLeft}`;
+        spanTimeLeft.innerHTML = `0${timeLeft}`;
         // dynamically alter the color based on time remaining
         // can also do "switch (true) {case}" example
         if (timeLeft >= 7) {
-            progress.style.backgroundColor = "#66c2a5";
-            timeLeftSpan.style.backgroundColor = "#66c2a5";
+            progress.style.backgroundColor = "#00ED96";
+            spanTimeLeft.style.backgroundColor = "#00ED96";
         } else if (timeLeft >= 4) {
-            progress.style.backgroundColor = "#fee08b";
-            timeLeftSpan.style.backgroundColor = "#fee08b";
+            progress.style.backgroundColor = "#FFDF00";
+            spanTimeLeft.style.backgroundColor = "#FFDF00";
         } else {
-            progress.style.backgroundColor = "#d53e4f";
-            timeLeftSpan.style.backgroundColor = "#d53e4f";
+            progress.style.backgroundColor = "#FF002E";
+            spanTimeLeft.style.backgroundColor = "#FF002E";
         }
     }
+}
+
+// interval: counting up
+function startCountUp() {
+    timerUp = setInterval(function () {
+        if (!pauseTimer) {
+            totalMinutes = parseInt(totalSeconds / 60);
+            totalSeconds = addZero(++totalSeconds % 60);  // add leading zero?
+            spanTimeSpent.innerText = `${totalMinutes}m ${totalSeconds}s`;
+        }
+    }, 1000);
+}
+
+function addZero(sec) {
+    // if seconds is 1-9, add leading 0
+    let secs = sec + "";
+    return secs = (secs.length < 2) ? `0${secs}` : secs;
 }
 
 function startGame() {
