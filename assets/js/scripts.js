@@ -363,7 +363,10 @@ function checkAnswer(clickedFlag) {
     resultsContainer.innerHTML += `
     <div class="result-row">
         <div class="result-row-content">
-            <h3><span class="index">${currentCountryIndex + 1}.</span> ${selectedCountries[currentCountryIndex].name}</h3>
+            <h3 class="modal-open" data-modal="study" data-country="${selectedCountries[currentCountryIndex].name}" data-iso="${selectedCountries[currentCountryIndex].iso}">
+                <span class="index">${currentCountryIndex + 1}.</span>
+                ${selectedCountries[currentCountryIndex].name}
+            </h3>
             <small class="badge ${classToAdd}">${pointsToAdd} point${isPlural}</small>
         </div>
     </div>`;
@@ -442,16 +445,21 @@ function disableFlags() {
     });
 }
 
-btnStudy.addEventListener("click", generateStudy);
+generateStudy();
 
 function generateStudy() {
-    // when user wants to study the flags, generate a dynamic list of all countries
+    // generate a dynamic list of all countries on page load
     countries.forEach(country => {
         studyContainer.innerHTML += `
-        <div class="study-row modal-open" data-modal="study" data-country="${country.name}" data-iso="${country.iso}">
-            ${country.name}
-        </div>`;
+            <div class="study-row modal-open" data-modal="study" data-country="${country.name}" data-iso="${country.iso}">
+                ${country.name}
+            </div>`;
     });
+}
+
+btnStudy.addEventListener("click", showStudySection);
+
+function showStudySection() {
     // disable the study button and show it
     btnStudy.classList.add("disable");
     sectionStudy.classList.remove("hide");
@@ -465,6 +473,17 @@ function generateStudy() {
 // won't work in forloop of modal-open elements since these are added dynamically after DOM content loaded
 // https://stackoverflow.com/a/67765423
 studyContainer.addEventListener("click", function (e) {
+    if (e.target.classList.contains("modal-open")) {
+        let countryName = e.target.dataset.country;
+        let countryIso = e.target.dataset.iso;
+        document.getElementById("study-name").innerText = countryName;
+        document.getElementById("study-flag").src = `assets/images/flags/${countryIso}.svg`;
+        document.getElementById("study-flag").alt = `Flag of ${countryName}`;
+        document.getElementById("study").showModal();
+    }
+});
+
+resultsContainer.addEventListener("click", function (e) {
     if (e.target.classList.contains("modal-open")) {
         let countryName = e.target.dataset.country;
         let countryIso = e.target.dataset.iso;
