@@ -10,7 +10,7 @@
     <meta name="description" content="Guess the Flag Quiz, built in JavaScript by Tim Nelson">
     <meta name="author" content="Tim Nelson, TravelTimN@gmail.com">
     <meta name="date" content="Dec. 21, 2023">
-    <meta name="theme-color" content="#3288bd">
+    <meta name="theme-color" content="#00A5FF">
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -19,23 +19,24 @@
     <link rel="shortcut icon" href="assets/images/world-flags-sphere.png" type="image/x-icon">
     <!-- css -->
     <link rel="stylesheet" href="assets/css/styles.css">
-    <title>Guess the Flag Quiz</title>
+    <title>Vexill-Uhm?</title>
 </head>
 
 <body>
     <!-- header and nav -->
     <header>
-        <h1 id="logo">Guess the Flag</h1>
+        <h1 id="logo">Vexill-Uhm?</h1>
         <!-- responsive checkbox navbar using CSS -->
         <input type="checkbox" id="nav-toggle" name="nav-toggle">
         <label for="nav-toggle" class="nav-toggle-label">
-            <i class="fa-solid fa-bars fa-xl"></i>
+            <i class="fa-solid fa-bars fa-xl" title="Menu" aria-hidden="true"></i>
         </label>
         <nav>
             <ul id="menu">
-                <li><span class="btn modal-open" data-modal="rules">Rules</span></li>
+                <li><span class="btn modal-open" id="rules-btn" data-modal="rules">Rules</span></li>
                 <li><span class="btn" id="study-btn">Study</span></li>
-                <li><span class="btn disable" id="restart-btn"><i class="fas fa-undo-alt"></i></span></li>
+                <li><span class="btn" id="scores-btn"><i class="fa-solid fa-trophy" title="Scores" aria-hidden="true"></i></span></li>
+                <li><span class="btn disable" id="restart-btn"><i class="fa-solid fa-undo-alt" title="Restart" aria-hidden="true"></i></span></li>
             </ul>
         </nav>
     </header>
@@ -160,6 +161,7 @@
                 <h2>Correct: <span id="total-correct">0</span></h2>
                 <h2>Incorrect: <span id="total-incorrect">0</span></h2>
                 <h2>Points: <span id="total-points">0</span></h2>
+                <h2>Duration: <span id="time-spent">0</span></h2>
             </div>
 
         </section>
@@ -183,7 +185,7 @@
             <div class="dialog-container">
                 <div class="modal-header">
                     <h2>Rules</h2>
-                    <i class="fa-solid fa-xmark fa-xl modal-close" data-modal="rules"></i>
+                    <i class="fa-solid fa-xmark fa-xl modal-close" title="Close Popup" aria-hidden="true" data-modal="rules"></i>
                 </div>
                 <div class="modal-body">
                     Some rules blah blah
@@ -199,7 +201,7 @@
             <div class="dialog-container">
                 <div class="modal-header">
                     <h2 id="study-name">${COUNTRY}</h2>
-                    <i class="fa-solid fa-xmark fa-xl modal-close" data-modal="study"></i>
+                    <i class="fa-solid fa-xmark fa-xl modal-close" title="Close Popup" aria-hidden="true" data-modal="study"></i>
                 </div>
                 <div class="modal-body">
                     <img src="assets/images/world-flags-sphere.png" alt="Flag of ${COUNTRY}" id="study-flag">
