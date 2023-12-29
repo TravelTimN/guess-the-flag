@@ -209,7 +209,7 @@ main {
 #final-results,
 #study-section {
     margin: 1em auto;
-    padding: 1em;
+    padding: 0.5em;
     background-color: #757575;
     border-radius: 1em;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
@@ -233,16 +233,16 @@ main {
 /* polaroids */
 
 /* colors from ColorBrewer2.org: diverging*10 */
-.polaroid:nth-child(1) img {border: 0.5em outset #9e0142;}
+/* .polaroid:nth-child(1) img {border: 0.5em outset #9e0142;}
 .polaroid:nth-child(2) img {border: 0.5em outset #d53e4f;}
 .polaroid:nth-child(3) img {border: 0.5em outset #f46d43;}
 .polaroid:nth-child(4) img {border: 0.5em outset #fee08b;}
 .polaroid:nth-child(5) img {border: 0.5em outset #66c2a5;}
 .polaroid:nth-child(6) img {border: 0.5em outset #3288bd;}
-.polaroid:nth-child(7) img {border: 0.5em outset #5e4fa2;}
+.polaroid:nth-child(7) img {border: 0.5em outset #5e4fa2;} */
 
 .polaroid {
-    --polaroid-width: 60vw;
+    --polaroid-width: 35vw;
     min-width: var(--polaroid-width);
     max-width: var(--polaroid-width);
     text-align: center;
@@ -261,7 +261,7 @@ main {
 
 .polaroid figcaption {
     font-weight: bold;
-    font-size: 2em;
+    font-size: 1.5em;
     font-family: "Bad Script", cursive;
 }
 
@@ -627,6 +627,13 @@ footer {
         flex-direction: row;
     }
 
+    #welcome,
+    #quiz-section,
+    #final-results,
+    #study-section {
+        padding: 1em;
+    }
+
     /* polaroids */
     .polaroid {
         --polaroid-width: 35vw;
@@ -644,6 +651,11 @@ footer {
 
     .badge {
         width: unset;
+    }
+
+    /* study */
+    #study-container {
+        column-count: 2;
     }
 }
 
@@ -718,7 +730,7 @@ footer {
     }
 
     #study-container {
-        column-count: 2;
+        column-count: 3;
     }
 }
 
@@ -755,7 +767,7 @@ footer {
 
     /* study */
     #study-container {
-        column-count: 3;
+        column-count: 4;
     }
 }
 
@@ -783,7 +795,7 @@ footer {
 
     /* study */
     #study-container {
-        column-count: 4;
+        column-count: 5;
     }
 }
 
@@ -812,20 +824,15 @@ footer {
 
     /* study */
     #study-container {
-        column-count: 5;
+        column-count: 6;
     }
 }
 
 
-/* hide / invisible / disable */
+/* hide / disable */
 
 .hide {
     display: none;
-}
-
-.invisible {
-    opacity: 0;
-    visibility: hidden;
 }
 
 .disable {
