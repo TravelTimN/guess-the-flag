@@ -25,26 +25,46 @@ body {
     background-color: #2c303a;
 }
 
+.font-primary {
+    font-family: "Bad Script";
+}
+
 .btn {
+    font-weight: bold;
     font-size: 1em;
     padding: 6px 12px;
     margin: 0.5em;
     display: block;
     text-decoration: none;
     text-align: center;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
     cursor: pointer;
     border-radius: 0.5em;
     border: 1px solid transparent;
-    background-color: #3288bd;
-    color: #ffffff;
+    background-color: #00A5FF;
+    color: #000000;
     transition: all 0.2s ease-in-out;
 }
 
 .btn:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    filter: saturate(3);
+    filter: contrast(0.75);
+}
+
+.btn#rules-btn {
+    background-color: #00ED96;
+}
+
+.btn#study-btn {
+    background-color: #00A5FF;
+}
+
+.btn#scores-btn {
+    background-color: #FFDF00;
+}
+
+.btn#restart-btn {
+    background-color: #FF002E;
 }
 
 /* dialogs / modals */
@@ -160,7 +180,7 @@ nav {
     position: absolute;
     width: 100%;
     left: 0;
-    padding: 0 1em;
+    padding: 1em;
     box-shadow: 0 2px 2px #ffffff;
     display: none;
     top: 4em;
@@ -234,11 +254,11 @@ main {
 
 /* colors from ColorBrewer2.org: diverging*10 */
 /* .polaroid:nth-child(1) img {border: 0.5em outset #9e0142;}
-.polaroid:nth-child(2) img {border: 0.5em outset #d53e4f;}
+.polaroid:nth-child(2) img {border: 0.5em outset #FF002E;}
 .polaroid:nth-child(3) img {border: 0.5em outset #f46d43;}
-.polaroid:nth-child(4) img {border: 0.5em outset #fee08b;}
-.polaroid:nth-child(5) img {border: 0.5em outset #66c2a5;}
-.polaroid:nth-child(6) img {border: 0.5em outset #3288bd;}
+.polaroid:nth-child(4) img {border: 0.5em outset #FFDF00;}
+.polaroid:nth-child(5) img {border: 0.5em outset #00ED96;}
+.polaroid:nth-child(6) img {border: 0.5em outset #00A5FF;}
 .polaroid:nth-child(7) img {border: 0.5em outset #5e4fa2;} */
 
 .polaroid {
@@ -304,12 +324,28 @@ main {
     border-radius: 0.5em;
 }
 
+#level,
+#time,
+#question-tracker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#game-selected,
+#time-left,
+#question-tally {
+    width: 100%;
+}
+
 #game-selected,
 #time-left,
 #question-tally,
 #total-correct,
 #total-incorrect,
-#total-points {
+#total-points,
+#time-spent {
     border-radius: 0.25em;
     font-weight: bold;
     padding: 0.1em 0.5em;
@@ -320,7 +356,7 @@ main {
 #time-left,
 #total-correct {
     color: #000000;
-    background-color: #66c2a5;
+    background-color: #00ED96;
 }
 
 /* progress bar */
@@ -335,13 +371,14 @@ main {
 .progress-bar {
     width: 100%;
     height: 0.5em;
-    background-color: #66c2a5;
+    background-color: #00ED96;
     transition: all 0.5s ease-in-out;
 }
 
 /* quiz question */
 #quiz-question {
-    margin: 1em auto;
+    padding: 0 1em;
+    margin: 0.5em auto;
     font-size: 1.5em;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
@@ -352,15 +389,14 @@ main {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 0.5em;
     padding: 1em;
-    margin: 1em auto;
-    width: 75%;
+    margin: 0.5em 1em;
 }
 
 #quiz-question .question-number,
 #user-selection,
 #country,
 .result-row-content h3 .index {
-    color: #fee08b;
+    color: #FFDF00;
 }
 
 #quiz-question .question-number::after {
@@ -373,7 +409,8 @@ main {
     align-items: center;
     justify-content: center;
     grid-gap: 0 1em;
-    margin: 1em auto;
+    padding: 0 1em;
+    margin: 0.5em auto;
 }
 
 #flags figure {
@@ -395,8 +432,8 @@ main {
 }
 
 #flags figure img {
-    min-height: 150px;
-    max-height: 150px;
+    min-height: 100px;
+    max-height: 100px;
     max-width: 100%;
     object-fit: contain;
 }
@@ -418,32 +455,36 @@ main {
 }
 
 #flags figure span {
-    color: #ffffff;
+    text-align: center;
     font-size: 6vw;
+    font-weight: bold;
     position: absolute;
     top: 50%;
     left: 50%;
     width: 90%;
     transform: translate(-50%, -50%);
-    text-align: center;
-    text-shadow: 2px 2px 2px #000000;
 }
 
 /* correct / incorrect */
 .correct {
-    color: #66c2a5;
+    color: #00ED96;
 }
 
 .incorrect {
-    color: #d53e4f;
+    color: #FF002E;
 }
 
 #flags figure figcaption.correct {
-    background-color: rgba(102, 194, 165, 0.95);
+    color: #000000;
+    text-shadow: 2px 2px 2px #ffffff;
+    background-color: rgba(0, 237, 150, 0.9);
 }
 
-#flags figure figcaption.incorrect {
-    background-color: rgba(213, 62, 79, 0.95);
+#flags figure figcaption.incorrect,
+#results-btn {
+    color: #ffffff;
+    text-shadow: 2px 2px 2px #000000;
+    background-color: rgba(255, 0, 46, 0.9);
 }
 
 #flags figure.incorrect {
@@ -481,7 +522,12 @@ main {
 #question-tally,
 #total-points {
     color: #000000;
-    background-color: #fee08b;
+    background-color: #FFDF00;
+}
+
+#time-spent {
+    color: #000000;
+    background-color: #00A5FF;
 }
 
 #next-btn,
@@ -500,7 +546,7 @@ main {
     padding: 1em;
     text-align: center;
     color: #ffffff;
-    background-color: #3288bd;
+    background-color: #00A5FF;
     text-shadow: 2px 2px 2px #000000;
 }
 
@@ -520,6 +566,10 @@ main {
     border-top-width: 0;
 }
 
+.result-row:nth-child(even) {
+    background-color: #313539;
+}
+
 .study-row {
     text-align: center;
     cursor: pointer;
@@ -527,11 +577,11 @@ main {
 }
 
 .study-row:hover {
-    background-color: rgba(50, 136, 189, 0.5);
+    background-color: rgba(0, 165, 255, 0.5);
 }
 
 img#study-flag {
-    max-height: 50vh;
+    max-height: 35vh;
     max-width: 100%;
 }
 
@@ -540,17 +590,17 @@ img#study-flag {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .result-row-content h3 {
-    padding: 0.5em;
     margin: 0;
     width: 100%;
 }
 
 /* badges */
 .badge {
-    margin: 1em;
+    margin: 0.5em;
     padding: 0.25em 0.75em;
     width: 100%;
     font-weight: bold;
@@ -561,14 +611,13 @@ img#study-flag {
 
 .badge.correct {
     color: #000000;
-    background-color: #66c2a5;
+    background-color: #00ED96;
 }
 
 .badge.incorrect,
-#results-btn,
 #total-incorrect {
-    color: #ffffff;
-    background-color: #d53e4f;
+    color: #000000;
+    background-color: #FF002E;
 }
 
 .study-badge {
@@ -583,7 +632,7 @@ img#study-flag {
 #results-footer {
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
-    background-color: #3288bd;
+    background-color: #00A5FF;
     padding: 1em;
 }
 
@@ -596,8 +645,14 @@ img#study-flag {
     border-radius: 0.5em;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
+}
+
+#results-footer h2 span {
+    width: 100%;
+    text-align: center;
 }
 
 /* footer */
@@ -608,6 +663,18 @@ footer {
 }
 
 /* media queries */
+@media screen and (min-width: 320px) {
+
+    /* flags */
+    #flags {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #flags figure span {
+        font-size: 4vw;
+    }
+}
+
 @media screen and (min-width: 450px) {
 
     /* header/nav */
@@ -631,7 +698,14 @@ footer {
     #quiz-section,
     #final-results,
     #study-section {
-        padding: 1em;
+        padding: 0.5em;
+    }
+
+    #game-selected,
+    #time-left,
+    #question-tally {
+        width: unset;
+        margin-left: 0.25em;
     }
 
     /* polaroids */
@@ -641,16 +715,29 @@ footer {
 
     /* flags */
     #flags figure span {
-        font-size: 5vw;
+        font-size: 4vw;
+    }
+
+    #flags figure img {
+        min-height: 150px;
+        max-height: 150px;
     }
 
     /* final results */
-    .result-row .result-row-content {
+    .result-row-content,
+    #results-footer h2 {
         flex-direction: row;
     }
 
+    #results-footer h2 span,
     .badge {
-        width: unset;
+        width: fit-content;
+    }
+
+    #level,
+    #time,
+    #question-tracker {
+        flex-direction: row;
     }
 
     /* study */
@@ -715,13 +802,8 @@ footer {
         width: unset;
     }
 
-    /* flags */
-    #flags {
-        grid-template-columns: 1fr 1fr;
-    }
-
     #flags figure span {
-        font-size: 4vw;
+        font-size: 3vw;
     }
 
     /* study */
@@ -840,5 +922,6 @@ footer {
 }
 
 .btn.disable {
-    background-color: lightslategray;
+    color: lightsteelblue !important;
+    background-color: lightslategray !important;
 }
