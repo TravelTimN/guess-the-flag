@@ -79,10 +79,41 @@ function closeModal(selectedModal) {
     }, 450); // CSS animation = 0.5s // close just before finishing to avoid slight glitch
 }
 
-btnRestart.addEventListener("click", function () {
-    // reload the page entirely
-    location.reload();
-});
+btnRestart.addEventListener("click", restartGame);
+
+function restartGame() {
+    // reset everything, similar to location.reload();
+    // disable.enable buttons
+    btnScores.classList.remove("disable");
+    btnRestart.classList.add("disable");
+    btnStudy.classList.remove("disable");
+    // hide elements
+    sectionQuiz.classList.add("hide");
+    sectionStudy.classList.add("hide");
+    sectionFinalResults.classList.add("hide");
+    sectionWelcome.classList.remove("hide");
+    questionResults.classList.add("hide");
+    btnResults.classList.add("hide");
+    clearInterval(timerDown);
+    clearInterval(timerUp);
+    // reset values
+    currentCountryIndex = 0;
+    timeLeftWidth = 100;
+    userPoints = 0;
+    totalCorrect = 0;
+    totalIncorrect = 0;
+    totalMinutes = 0;
+    totalSeconds = 0;
+    spanTimeLeft.innerText = "10";
+    progress.style.width = timeLeftWidth + "%";
+    spanTimeSpent.innerText = "0";
+    selectedGame = "None";
+    selectedGameSpan.innerText = selectedGame;
+    progress.style.backgroundColor = "#00ED96";
+    spanTimeLeft.style.backgroundColor = "#00ED96";
+    flagsContainer.innerText = "";
+    resultsContainer.innerText = "";
+}
 
 // loop through each polaroid and listen for a click event
 polaroids.forEach(polaroid => {
