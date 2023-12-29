@@ -12,28 +12,37 @@ const btnStudy = document.getElementById("study-btn");
 const btnRestart = document.getElementById("restart-btn");
 const btnNext = document.getElementById("next-btn");
 const btnResults = document.getElementById("results-btn");
+const btnScores = document.getElementById("scores-btn");
 const polaroids = document.querySelectorAll(".polaroid");
 const spanCountry = document.getElementById("country");
 const spanQuestionNumbers = document.querySelectorAll(".question-number");
 const spanTotalQuestions = document.getElementById("total-questions");
-const questionResults = document.getElementById("question-results");
 const spanUserSelection = document.getElementById("user-selection");
 const spanUserResult = document.getElementById("user-result");
 const spanTotalCorrect = document.getElementById("total-correct");
 const spanTotalIncorrect = document.getElementById("total-incorrect");
 const spanTotalPoints = document.getElementById("total-points");
+const questionResults = document.getElementById("question-results");
 const progress = document.getElementById("progress");
-const timeLeftSpan = document.getElementById("time-left");
+const spanTimeLeft = document.getElementById("time-left");
+const spanTimeSpent = document.getElementById("time-spent");
+const spanTotalCountries = document.getElementById("total-countries");
 
 let flagsContainer = document.getElementById("flags");
 let resultsContainer = document.getElementById("results-container");
 let studyContainer = document.getElementById("study-container");
-let selectedGame, selectedCountries, timeLeft, timer;
+let selectedGame, selectedCountries, timeLeft, timerDown, timerUp;
+let pauseTimer = false;
 let timeLeftWidth = 100;
+let maxQuestions = 10;
 let userPoints = 0;
 let totalCorrect = 0;
 let totalIncorrect = 0;
+let totalMinutes = 0;
+let totalSeconds = 0;
 let currentCountryIndex = 0;
+
+spanTotalCountries.innerText = countries.length;
 
 // loop modals-open btns and listen for user click events
 btnOpenModals.forEach(btn => {
@@ -130,8 +139,9 @@ function startGame() {
     // unhide the quiz section & restart button
     sectionQuiz.classList.remove("hide");
     btnRestart.classList.remove("disable");
-    // disable the study button
+    // disable the study and scores buttons
     btnStudy.classList.add("disable");
+    btnScores.classList.add("disable");
 
     // setup the list of questions/countries to use
     if (selectedGame != "Random" && selectedGame != "Beast") {
@@ -146,8 +156,10 @@ function startGame() {
     shuffleCountries(selectedCountries);
 
     // display the total number of flag questions
-    spanTotalQuestions.innerText = selectedCountries.length;
+    spanTotalQuestions.innerText = maxQuestions;
 
+    // start the timerUp countup
+    startCountUp();
     generateQuestion();
 }
 
@@ -162,8 +174,8 @@ function shuffleOptions(options) {
 }
 
 function generateQuestion() {
-    // start the timer
-    startTimer();
+    // start the timerDown countDown
+    startCountDown();
 
     // display the current question number
     spanQuestionNumbers.forEach(span => {
@@ -234,12 +246,15 @@ function generateQuestion() {
 }
 
 function userClickedFlag(e) {
+    // stop the countDown
+    clearInterval(timerDown);
+    // pause the countUp
+    pauseTimer = true;
+
+    let clickedFlag;
     // user selected something - verify that it's the figure or the image
     // this is to allow disabling additional guesses, but including hover/animation effects
-    clearInterval(timer);
-
     // identify what the user clicked (figure or img)
-    let clickedFlag;
     if (e.target.nodeName == "FIGURE") {
         // use the <img> from the figure
         clickedFlag = this.getElementsByTagName("img")[0];
@@ -267,7 +282,7 @@ function checkAnswer(clickedFlag) {
         classToAdd = "correct";
         iconToAdd = "fa-solid fa-square-check fa-xl";
 
-        // increment the user's point value with the remaining time left on the countdown
+        // increment the user's point value with the remaining time left on the countDown
         pointsToAdd = timeLeft;
         userPoints += pointsToAdd;
     } else {
@@ -290,7 +305,7 @@ function checkAnswer(clickedFlag) {
         let clickedFlagCountry = selectedCountries.find(country => country.iso === countryClicked);
         spanUserSelection.innerText = clickedFlagCountry.name;
     }
-    spanUserResult.innerHTML = `<span class="${classToAdd}">${classToAdd.toUpperCase()} <i class="${iconToAdd}"></i></span>.`;
+    spanUserResult.innerHTML = `<span class="${classToAdd}">${classToAdd.toUpperCase()} <i class="${iconToAdd}" aria-hidden="true"></i></span>.`;
     // show the results to the user
     questionResults.classList.remove("hide");
 
@@ -306,8 +321,9 @@ function checkAnswer(clickedFlag) {
     </div>`;
 
     // only proceed if there are more questions to cycle
-    if (currentCountryIndex + 1 === selectedCountries.length) {
-        // there are no more questions - stop here
+    if (currentCountryIndex + 1 === maxQuestions) {
+        // there are no more questions - stop the timer
+        clearInterval(timerUp);
         btnResults.classList.remove("hide");
     } else {
         // there are more questions - keep going / show the next button
@@ -318,9 +334,11 @@ function checkAnswer(clickedFlag) {
 btnNext.addEventListener("click", resetQuestion);
 
 function resetQuestion() {
+    // resume the countUp
+    pauseTimer = false;
     // reset progress bar
     timeLeftWidth = 100;
-    progress.style.backgroundColor = "#66c2a5";
+    progress.style.backgroundColor = "#00ED96";
     progress.style.width = timeLeftWidth + "%";
     // hide elements
     btnNext.classList.add("hide");
@@ -328,8 +346,8 @@ function resetQuestion() {
     // increment array index +1
     currentCountryIndex++;
     // reset time left and styles
-    timeLeftSpan.innerHTML = "10";
-    timeLeftSpan.style.backgroundColor = "#66c2a5";
+    spanTimeLeft.innerHTML = "10";
+    spanTimeLeft.style.backgroundColor = "#00ED96";
     // empty the previous values
     flagsContainer.innerHTML = "";
     spanUserSelection.innerText = "";
@@ -341,10 +359,13 @@ function resetQuestion() {
 btnResults.addEventListener("click", showResults);
 
 function showResults() {
+    // pause the countUp
+    pauseTimer = true;
     // shows the user their results (update correct/incorrect/total points)
     spanTotalCorrect.innerText = totalCorrect;
     spanTotalIncorrect.innerText = totalIncorrect;
     spanTotalPoints.innerText = userPoints;
+    btnScores.classList.remove("disable");
     sectionFinalResults.classList.remove("hide");
     sectionQuiz.classList.add("hide");
 }
