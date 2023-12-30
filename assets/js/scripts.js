@@ -344,8 +344,6 @@ function checkAnswer(clickedFlag) {
         // is correct
         totalCorrect++;
         classToAdd = "correct";
-        iconToAdd = "fa-solid fa-square-check fa-xl";
-
         // increment the user's point value with the remaining time left on the countDown
         pointsToAdd = timeLeft;
         userPoints += pointsToAdd;
@@ -353,12 +351,7 @@ function checkAnswer(clickedFlag) {
         // is not correct
         totalIncorrect++;
         classToAdd = "incorrect";
-        iconToAdd = "fa-solid fa-circle-xmark fa-xl";
         pointsToAdd = 0;
-
-        if (clickedFlag != null) {
-            clickedFlag.parentElement.classList.add("incorrect");
-        }
     }
 
     // update the visible display to the user of their results
@@ -369,7 +362,7 @@ function checkAnswer(clickedFlag) {
         let clickedFlagCountry = selectedCountries.find(country => country.iso === countryClicked);
         spanUserSelection.innerText = clickedFlagCountry.name;
     }
-    spanUserResult.innerHTML = `<span class="${classToAdd}">${classToAdd.toUpperCase()} <i class="${iconToAdd}" aria-hidden="true"></i></span>.`;
+    spanUserResult.innerHTML = `<span class="${classToAdd}">${classToAdd.toUpperCase()}</span>.`;
     // show the results to the user
     questionResults.classList.remove("hide");
 
@@ -377,10 +370,10 @@ function checkAnswer(clickedFlag) {
     isPlural = pointsToAdd != 1 ? "s" : "";  // TODO: show single-line ternary operator
     // build a result-row for each round/question
     resultsContainer.innerHTML += `
-    <div class="result-row">
+    <div class="result-row txt-white">
         <div class="result-row-content">
             <h3 class="modal-open" data-modal="study" data-country="${selectedCountries[currentCountryIndex].name}" data-iso="${selectedCountries[currentCountryIndex].iso}">
-                <span class="index">${currentCountryIndex + 1}.</span>
+                <span class="txt-yellow">${currentCountryIndex + 1}.</span>
                 ${selectedCountries[currentCountryIndex].name}
             </h3>
             <small class="badge ${classToAdd}">${pointsToAdd} point${isPlural}</small>
@@ -443,9 +436,9 @@ function addBgColor() {
     let figSpans = document.querySelectorAll("#flags figure figcaption span");
     figSpans.forEach(span => {
         if (span.textContent === correctCountry) {
-            span.parentElement.classList.add("correct");
+            span.parentElement.classList.add("bg-green", "txt-black");
         } else {
-            span.parentElement.classList.add("incorrect");
+            span.parentElement.classList.add("bg-red", "txt-white");
         }
     });
 }
@@ -467,7 +460,7 @@ function generateStudy() {
     // generate a dynamic list of all countries on page load
     countries.forEach(country => {
         studyContainer.innerHTML += `
-            <div class="study-row modal-open" data-modal="study" data-country="${country.name}" data-iso="${country.iso}">
+            <div class="study-row txt-white modal-open" data-modal="study" data-country="${country.name}" data-iso="${country.iso}">
                 ${country.name}
             </div>`;
     });
