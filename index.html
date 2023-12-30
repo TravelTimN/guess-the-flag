@@ -25,18 +25,34 @@
 <body>
     <!-- header and nav -->
     <header>
-        <h1 id="logo">Vexill-Uhm?</h1>
+        <h1 id="logo" class="txt-white">Vexill-Uhm?</h1>
         <!-- responsive checkbox navbar using CSS -->
         <input type="checkbox" id="nav-toggle" name="nav-toggle">
-        <label for="nav-toggle" class="nav-toggle-label">
+        <label for="nav-toggle" class="nav-toggle-label txt-white">
             <i class="fa-solid fa-bars fa-xl" title="Menu" aria-hidden="true"></i>
         </label>
         <nav>
             <ul id="menu">
-                <li><span class="btn modal-open" id="rules-btn" data-modal="rules">Rules</span></li>
-                <li><span class="btn" id="study-btn">Study</span></li>
-                <li><span class="btn" id="scores-btn"><i class="fa-solid fa-trophy" title="Scores" aria-hidden="true"></i></span></li>
-                <li><span class="btn disable" id="restart-btn"><i class="fa-solid fa-undo-alt" title="Restart" aria-hidden="true"></i></span></li>
+                <li>
+                    <span class="btn bg-green txt-black modal-open" id="rules-btn" data-modal="rules">
+                        Rules
+                    </span>
+                </li>
+                <li>
+                    <span class="btn bg-blue txt-black" id="study-btn">
+                        Study
+                    </span>
+                </li>
+                <li>
+                    <span class="btn bg-yellow txt-black" id="scores-btn">
+                        <i class="fa-solid fa-trophy" title="Scores" aria-hidden="true"></i>
+                    </span>
+                </li>
+                <li>
+                    <span class="btn bg-red txt-white disable" id="restart-btn">
+                        <i class="fa-solid fa-undo-alt" title="Restart" aria-hidden="true"></i>
+                    </span>
+                </li>
             </ul>
         </nav>
     </header>
@@ -47,7 +63,7 @@
         <!-- section: welcome & about -->
         <section id="welcome">
 
-            <div id="about">
+            <div id="about" class="txt-white">
                 <h2>Welcome to <span class="font-primary">"Vexill-Uhm?"</span>.</h2>
 
                 <img src="assets/images/flags/vexillology.png"
@@ -57,67 +73,67 @@
                     The term "vexillology" is the study of the history, symbolism,
                     and usage of flags or, by extension, any interest in flags in general.
                 </p>
-                <hr>
+                <hr class="bg-blue">
                 <p>
                     Flags come in all shapes, sizes, and colors.
                     Do you think you have what it takes to be a true vexillologist or vexillophile?
                 </p>
-                <hr>
+                <hr class="bg-blue">
                 <p>
-                    There are currently <span id="total-countries"></span>
+                    There are currently <span id="total-countries" class="txt-yellow"></span>
                     country flags in this game, from all corners of the world.
                 </p>
-                <hr>
-                <span class="badge">
+                <hr class="bg-blue">
+                <span class="badge bg-yellow txt-black">
                     Select a game below to test your knowledge!
                 </span>
             </div>
 
             <div id="select-game">
                 <!-- africa -->
-                <figure class="polaroid left" data-game="Africa">
+                <figure class="polaroid bg-white left" data-game="Africa">
                     <!-- https://deih43ym53wif.cloudfront.net/pyramids-giza-sphinx-egypt-shutterstock_1356877124_2d3f72a379.jpeg -->
                     <img src="assets/images/polaroids/africa.png" alt="Photo of Giza Pyramids and Sphinx in Egypt">
                     <figcaption>Africa</figcaption>
                 </figure>
 
                 <!-- americas -->
-                <figure class="polaroid right" data-game="Americas">
+                <figure class="polaroid bg-white right" data-game="Americas">
                     <!-- https://www.fodors.com/wp-content/uploads/2022/07/HERO-shutterstock_1283692720.jpg -->
                     <img src="assets/images/polaroids/americas.png" alt="Photo of Christ the Redeemer in Brazil">
                     <figcaption>Americas</figcaption>
                 </figure>
 
                 <!-- asia -->
-                <figure class="polaroid left" data-game="Asia">
+                <figure class="polaroid bg-white left" data-game="Asia">
                     <!-- https://cdn.britannica.com/05/80605-050-AFBADB92/Torii-ritual-gates-division-secular-Itsuku-Island.jpg -->
                     <img src="assets/images/polaroids/asia.png" alt="Photo of Torii Gates in Japan">
                     <figcaption>Asia</figcaption>
                 </figure>
 
                 <!-- europe -->
-                <figure class="polaroid right" data-game="Europe">
+                <figure class="polaroid bg-white right" data-game="Europe">
                     <!-- https://media.cntraveler.com/photos/58de89946c3567139f9b6cca/16:9/w_2560%2Cc_limit/GettyImages-468366251.jpg -->
                     <img src="assets/images/polaroids/europe.png" alt="Photo of the Eiffel Tower in France">
                     <figcaption>Europe</figcaption>
                 </figure>
 
                 <!-- oceania -->
-                <figure class="polaroid left" data-game="Oceania">
+                <figure class="polaroid bg-white left" data-game="Oceania">
                     <!-- https://cdn.britannica.com/85/95085-050-C749819D/Sydney-Opera-House-Bennelong-Point-Port-Jackson.jpg -->
                     <img src="assets/images/polaroids/oceania.png" alt="Photo of the Sydney Opera House in Australia">
                     <figcaption>Oceania</figcaption>
                 </figure>
 
                 <!-- random -->
-                <figure class="polaroid right" data-game="Random">
+                <figure class="polaroid bg-white right" data-game="Random">
                     <!-- https://www.bergerpaints.com/imaginecolours/wp-content/uploads/2016/09/flags-of-the-world-800x474.png -->
                     <img src="assets/images/polaroids/random.png" alt="Photo of random country flags">
                     <figcaption>Random</figcaption>
                 </figure>
 
                 <!-- beast -->
-                <figure class="polaroid left" data-game="Beast">
+                <figure class="polaroid bg-white left" data-game="Beast">
                     <!-- https://i.ebayimg.com/images/g/rwQAAOSwyPJiRK1a/s-l1200.webp -->
                     <img src="assets/images/polaroids/beast.png" alt="Photo of black flag with 'Beast Mode' text in white">
                     <figcaption>Beast</figcaption>
@@ -128,29 +144,29 @@
         </section>
 
         <!-- section: quiz game area -->
-        <section id="quiz-section" class="hide">
+        <section id="quiz-section" class="txt-white hide">
             <div id="quiz-container">
                 <!-- quiz header -->
                 <div id="quiz-header">
-                    <div id="level">Level: <span id="game-selected"></span></div>
-                    <div id="time">Time: <span id="time-left">10</span></div>
+                    <div id="level">Level: <span id="game-selected" class="bg-green txt-black"></span></div>
+                    <div id="time">Time: <span id="time-left" class="bg-green txt-black">10</span></div>
                 </div>
                 <!-- progress bar -->
                 <div class="progress-container">
-                    <div id="progress" class="progress-bar" role="progressbar"></div>
+                    <div id="progress" class="progress-bar bg-green" role="progressbar"></div>
                 </div>
                 <!-- quiz question -->
                 <div id="quiz-question">
-                    <span class="question-number"></span>
+                    <span class="question-number txt-yellow"></span>
                     Which flag belongs to
-                    <span id="country"></span>?
+                    <span id="country" class="txt-yellow"></span>?
                 </div>
                 <!-- quiz flags (x4) -->
                 <div id="flags"></div>
                 <!-- question results -->
                 <div id="question-results" class="hide">
                     You've selected
-                    <span id="user-selection"></span>.
+                    <span id="user-selection" class="txt-yellow"></span>.
                     <br>
                     That's
                     <span id="user-result"></span>
@@ -159,14 +175,14 @@
                 <div id="quiz-footer">
                     <div id="question-tracker">
                         Question:
-                        <span id="question-tally">
+                        <span id="question-tally" class="bg-yellow txt-black">
                             <span class="question-number"></span>
                             of
                             <span id="total-questions"></span>
                         </span>
                     </div>
-                    <span id="next-btn" class="btn hide">Next</span>
-                    <span id="results-btn" class="btn hide">Results</span>
+                    <span id="next-btn" class="btn bg-blue txt-black hide">Next</span>
+                    <span id="results-btn" class="btn bg-red txt-white hide">Results</span>
                 </div>
             </div>
         </section>
@@ -174,19 +190,25 @@
         <!-- section: final results -->
         <section id="final-results" class="hide">
 
-            <div id="results-header">
-                <h2>Quiz Results</h2>
+            <div id="results-header" class="bg-blue txt-white">
+                <h2 class="txt-white">Quiz Results</h2>
             </div>
 
             <div id="results-container">
                 <!-- these get generated automatically in JavaScript -->
             </div>
 
-            <div id="results-footer">
-                <h2>Correct: <span id="total-correct">0</span></h2>
-                <h2>Incorrect: <span id="total-incorrect">0</span></h2>
-                <h2>Points: <span id="total-points">0</span></h2>
-                <h2>Duration: <span id="time-spent">0</span></h2>
+            <div id="results-footer" class="bg-blue">
+                <h2 class="txt-white">Correct: <span id="total-correct" class="bg-green txt-black">0</span></h2>
+                <h2 class="txt-white">Incorrect: <span id="total-incorrect" class="bg-red txt-white">0</span></h2>
+                <h2 class="txt-white">Points: <span id="total-points" class="bg-yellow txt-black">0</span></h2>
+                <h2 class="txt-white">
+                    Duration:
+                    <span id="time-spent" class="bg-blue txt-black">
+                        <span id="time-spent-min">0</span>
+                        <span id="time-spent-sec">0</span>
+                    </span>
+                </h2>
             </div>
 
         </section>
@@ -194,7 +216,7 @@
         <!-- section: study the flags -->
         <section id="study-section" class="hide">
 
-            <div id="study-header">
+            <div id="study-header" class="bg-blue txt-white">
                 <h2>Study the Flags</h2>
                 <h5 class="study-badge">Click a country to view the flag!</h5>
             </div>
@@ -205,8 +227,10 @@
 
         </section>
 
+        </section>
+
         <!-- dialog: rules -->
-        <dialog id="rules">
+        <dialog id="rules" class="txt-white">
             <div class="dialog-container">
                 <div class="modal-header">
                     <h2>Rules</h2>
@@ -216,13 +240,13 @@
                     Some rules blah blah
                 </div>
                 <div class="modal-footer">
-                    <span class="btn modal-close" data-modal="rules">Close</span>
+                    <span class="btn bg-blue txt-black modal-close" data-modal="rules">Close</span>
                 </div>
             </div>
         </dialog>
 
         <!-- dialog: study flag images -->
-        <dialog id="study">
+        <dialog id="study" class="txt-white">
             <div class="dialog-container">
                 <div class="modal-header">
                     <h2 id="study-name">${COUNTRY}</h2>
@@ -232,7 +256,7 @@
                     <img src="assets/images/world-flags-sphere.png" alt="Flag of ${COUNTRY}" id="study-flag">
                 </div>
                 <div class="modal-footer">
-                    <span class="btn modal-close" data-modal="study">Close</span>
+                    <span class="btn bg-blue txt-black modal-close" data-modal="study">Close</span>
                 </div>
             </div>
         </dialog>
