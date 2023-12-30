@@ -25,7 +25,8 @@ const spanTotalPoints = document.getElementById("total-points");
 const questionResults = document.getElementById("question-results");
 const progress = document.getElementById("progress");
 const spanTimeLeft = document.getElementById("time-left");
-const spanTimeSpent = document.getElementById("time-spent");
+const spanTimeSpentMin = document.getElementById("time-spent-min");
+const spanTimeSpentSec = document.getElementById("time-spent-sec");
 const spanTotalCountries = document.getElementById("total-countries");
 
 let flagsContainer = document.getElementById("flags");
@@ -102,9 +103,11 @@ function restartGame() {
     totalIncorrect = 0;
     totalMinutes = 0;
     totalSeconds = 0;
+    pauseTimer = false;
     spanTimeLeft.innerText = "10";
     progress.style.width = timeLeftWidth + "%";
-    spanTimeSpent.innerText = "0";
+    spanTimeSpentMin.innerText = "0m";
+    spanTimeSpentSec.innerText = "0s";
     selectedGame = "None";
     selectedGameSpan.innerText = selectedGame;
     progress.style.backgroundColor = "#00ED96";
@@ -138,7 +141,6 @@ function countDown(seconds) {
     if (seconds === 0) {
         // time ran out, stop everything
         disableFlags();
-        clearInterval(timerDown);
         spanTimeLeft.innerHTML = "00";
         checkAnswer(null);
     } else {
@@ -166,9 +168,9 @@ function countDown(seconds) {
 function startCountUp() {
     timerUp = setInterval(function () {
         if (!pauseTimer) {
-            totalMinutes = parseInt(totalSeconds / 60);
-            totalSeconds = addZero(++totalSeconds % 60);  // add leading zero?
-            spanTimeSpent.innerText = `${totalMinutes}m ${totalSeconds}s`;
+            ++totalSeconds;
+            spanTimeSpentMin.innerText = parseInt(totalSeconds / 60) + "m";
+            spanTimeSpentSec.innerText = addZero(totalSeconds % 60) + "s";  // add leading zero?
         }
     }, 1000);
 }
@@ -308,13 +310,8 @@ function generateQuestion() {
 }
 
 function userClickedFlag(e) {
-    // stop the countDown
-    clearInterval(timerDown);
-    // pause the countUp
-    pauseTimer = true;
-
-    let clickedFlag;
     // user selected something - verify that it's the figure or the image
+    let clickedFlag;
     // this is to allow disabling additional guesses, but including hover/animation effects
     // identify what the user clicked (figure or img)
     if (e.target.nodeName == "FIGURE") {
@@ -331,7 +328,12 @@ function userClickedFlag(e) {
 }
 
 function checkAnswer(clickedFlag) {
-    let countryClicked, classToAdd, iconToAdd, pointsToAdd, isPlural;
+    // stop the countDown
+    clearInterval(timerDown);
+    // pause the countUp
+    pauseTimer = true;
+
+    let countryClicked, classToAdd, pointsToAdd, isPlural;
     if (clickedFlag != null) {
         // grab the iso from clicked flag (if not null)
         countryClicked = clickedFlag.src.slice(-6, -4);
