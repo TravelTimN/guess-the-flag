@@ -42,8 +42,6 @@ let totalMinutes = 0;
 let totalSeconds = 0;
 let currentCountryIndex = 0;
 
-spanTotalCountries.innerText = countries.length;
-
 // loop modals-open btns and listen for user click events
 btnOpenModals.forEach(btn => {
     btn.addEventListener("click", function () {
@@ -200,6 +198,22 @@ function startGame() {
         // "random" & "beast mode" grabs all countries from the array
         selectedCountries = countries;
     }
+
+    // set the maximum number of flags to play
+    switch (selectedGame) {
+        case "Beast":
+            maxQuestions = countries.length;
+            break;
+        case "Random":
+            maxQuestions = 25;
+            break;
+        default:
+            maxQuestions = 10;
+            break;
+    }
+    // display number of flags to be played
+    spanTotalCountries.innerText = maxQuestions;
+
     // call function to shuffle the selectedCountries
     shuffleCountries(selectedCountries);
 
