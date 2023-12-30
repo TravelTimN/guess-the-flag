@@ -481,24 +481,21 @@ function showStudySection() {
 // listen to a user clicking within the studyContainer
 // won't work in forloop of modal-open elements since these are added dynamically after DOM content loaded
 // https://stackoverflow.com/a/67765423
-studyContainer.addEventListener("click", function (e) {
-    if (e.target.classList.contains("modal-open")) {
-        let countryName = e.target.dataset.country;
-        let countryIso = e.target.dataset.iso;
-        document.getElementById("study-name").innerText = countryName;
-        document.getElementById("study-flag").src = `assets/images/flags/${countryIso}.svg`;
-        document.getElementById("study-flag").alt = `Flag of ${countryName}`;
-        document.getElementById("study").showModal();
-    }
+let flagContainers = [studyContainer, resultsContainer];
+flagContainers.forEach(container => {
+    container.addEventListener("click", function (e) {
+        if (e.target.classList.contains("modal-open")) {
+            showFlagModal(e);
+        }
+    });
 });
 
-resultsContainer.addEventListener("click", function (e) {
-    if (e.target.classList.contains("modal-open")) {
-        let countryName = e.target.dataset.country;
-        let countryIso = e.target.dataset.iso;
-        document.getElementById("study-name").innerText = countryName;
-        document.getElementById("study-flag").src = `assets/images/flags/${countryIso}.svg`;
-        document.getElementById("study-flag").alt = `Flag of ${countryName}`;
-        document.getElementById("study").showModal();
-    }
-});
+function showFlagModal(e) {
+    // display dialog/modal with specific flag/country clicked
+    let countryName = e.target.dataset.country;
+    let countryIso = e.target.dataset.iso;
+    document.getElementById("study-name").innerText = countryName;
+    document.getElementById("study-flag").src = `assets/images/flags/${countryIso}.svg`;
+    document.getElementById("study-flag").alt = `Flag of ${countryName}`;
+    document.getElementById("study").showModal();
+}
