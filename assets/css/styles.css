@@ -287,9 +287,11 @@ main {
 
 #about .badge {
     margin: 1em auto;
-    width: fit-content;
+    white-space: unset;
     color: #000000;
-    background-color: #00A5FF;
+    background-color: #FFDF00;
+    border-radius: 0.5em;
+    display: block;
 }
 
 /* polaroids */
