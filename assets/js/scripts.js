@@ -41,6 +41,8 @@ let totalCorrect = 0;
 let totalIncorrect = 0;
 let totalMinutes = 0;
 let totalSeconds = 0;
+let gameMin = 0;
+let gameSec = 0;
 let currentCountryIndex = 0;
 
 // loop modals-open btns and listen for user click events
@@ -169,8 +171,10 @@ function startCountUp() {
     timerUp = setInterval(function () {
         if (!pauseTimer) {
             ++totalSeconds;
-            spanTimeSpentMin.innerText = parseInt(totalSeconds / 60) + "m";
-            spanTimeSpentSec.innerText = addZero(totalSeconds % 60) + "s";  // add leading zero?
+            gameMin = parseInt(totalSeconds / 60) + "m";
+            gameSec = addZero(totalSeconds % 60) + "s";  // add leading zero?
+            spanTimeSpentMin.innerText = gameMin;
+            spanTimeSpentSec.innerText = gameSec;
         }
     }, 1000);
 }
