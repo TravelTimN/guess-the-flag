@@ -201,7 +201,6 @@
             <div id="results-footer" class="bg-blue">
                 <h2 class="txt-white">Correct: <span id="total-correct" class="bg-green txt-black">0</span></h2>
                 <h2 class="txt-white">Incorrect: <span id="total-incorrect" class="bg-red txt-white">0</span></h2>
-                <h2 class="txt-white">Points: <span id="total-points" class="bg-yellow txt-black">0</span></h2>
                 <h2 class="txt-white">
                     Duration:
                     <span id="time-spent" class="bg-blue txt-black">
@@ -209,6 +208,7 @@
                         <span id="time-spent-sec">0</span>
                     </span>
                 </h2>
+                <h2 class="txt-white">Points: <span id="total-points" class="bg-yellow txt-black">0</span></h2>
             </div>
 
         </section>
@@ -234,56 +234,67 @@
                 <h2>High Scores</h2>
             </div>
 
+            <!-- these get generated dynamically in JavaScript -->
             <div id="scores-container">
-                <!-- these get generated automatically in JavaScript -->
-                <div class="scores-row">
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Africa</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">0 points</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DURATION</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DATE</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">PLAYED</span></div>
+                <!-- no existing scores - hide all other rows -->
+                <div class="scores-row" id="empty-scores">
+                    <div class="scores-col txt-white">No Scores Found</div>
                 </div>
-                <div class="scores-row">
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Americas</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">0 points</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DURATION</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DATE</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">PLAYED</span></div>
+                <!-- score: africa -->
+                <div class="scores-row hide" id="africa-scores">
+                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Africa</span></div>
+                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="africa-points">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="africa-duration">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="africa-date">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="africa-played">0</span></span></div>
                 </div>
-                <div class="scores-row">
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Asia</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">0 points</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DURATION</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DATE</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">PLAYED</span></div>
+                <!-- score: americas -->
+                <div class="scores-row hide" id="americas-scores">
+                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Americas</span></div>
+                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="americas-points">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="americas-duration">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="americas-date">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="americas-played">0</span></span></div>
                 </div>
-                <div class="scores-row">
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Europe</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">0 points</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DURATION</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DATE</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">PLAYED</span></div>
+                <!-- score: asia -->
+                <div class="scores-row hide" id="asia-scores">
+                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Asia</span></div>
+                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="asia-points">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="asia-duration">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="asia-date">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="asia-played">0</span></span></div>
                 </div>
-                <div class="scores-row">
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Oceania</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">0 points</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DURATION</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DATE</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">PLAYED</span></div>
+                <!-- score: europe -->
+                <div class="scores-row hide" id="europe-scores">
+                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Europe</span></div>
+                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="europe-points">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="europe-duration">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="europe-date">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="europe-played">0</span></span></div>
                 </div>
-                <div class="scores-row">
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Random</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">0 points</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DURATION</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DATE</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">PLAYED</span></div>
+                <!-- score: oceania -->
+                <div class="scores-row hide" id="oceania-scores">
+                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Oceania</span></div>
+                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="oceania-points">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="oceania-duration">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="oceania-date">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="oceania-played">0</span></span></div>
                 </div>
-                <div class="scores-row">
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Beast</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">0 points</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DURATION</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">DATE</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">PLAYED</span></div>
+                <!-- score: random -->
+                <div class="scores-row hide" id="random-scores">
+                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Random</span></div>
+                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="random-points">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="random-duration">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="random-date">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="random-played">0</span></span></div>
+                </div>
+                <!-- score: beast -->
+                <div class="scores-row hide" id="beast-scores">
+                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Beast</span></div>
+                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="beast-points">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="beast-duration">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="beast-date">N/A</span></span></div>
+                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="beast-played">0</span></span></div>
                 </div>
             </div>
 
