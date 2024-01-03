@@ -5,6 +5,7 @@ const sectionWelcome = document.getElementById("welcome");
 const sectionQuiz = document.getElementById("quiz-section");
 const sectionFinalResults = document.getElementById("final-results");
 const sectionStudy = document.getElementById("study-section");
+const sectionScores = document.getElementById("scores-section");
 const selectedGameSpan = document.getElementById("game-selected");
 const btnOpenModals = document.querySelectorAll(".modal-open");
 const btnCloseModals = document.querySelectorAll(".modal-close");
@@ -93,6 +94,7 @@ function restartGame() {
     sectionStudy.classList.add("hide");
     sectionFinalResults.classList.add("hide");
     sectionWelcome.classList.remove("hide");
+    sectionScores.classList.add("hide");
     questionResults.classList.add("hide");
     btnResults.classList.add("hide");
     clearInterval(timerDown);
@@ -432,6 +434,45 @@ function showResults() {
     btnScores.classList.remove("disable");
     sectionFinalResults.classList.remove("hide");
     sectionQuiz.classList.add("hide");
+
+    // game is over - update the localStorage scoring
+    saveScores();
+}
+
+function saveScores() {
+    // save the score, duration, date, number of times played
+    let currentGame = selectedGame.toLowerCase();
+
+    let score, played, newLocalStorage;
+
+    // check for existing localStorage for this game
+    let getGameScores = JSON.parse(localStorage.getItem(currentGame));
+    if (getGameScores) {
+        score = getGameScores.score;
+        played = getGameScores.played;
+    } else {
+        // no existing score(s)
+        score = played = "0";
+    }
+
+    if (userPoints >= score) {
+        // new score is higher - update everything: score, duration, date, played
+        newLocalStorage = {
+            "score": userPoints,
+            "duration": `${gameMin} ${gameSec}`,
+            "date": new Date().toLocaleDateString("en-GB", {"day": "2-digit", "month": "short", "year": "numeric"}),
+            "played": parseInt(played + 1)
+        }
+    } else {
+        // retain existing high score, but increment the number of times played
+        newLocalStorage = {
+            "score": getGameScores.score,
+            "duration": getGameScores.duration,
+            "date": getGameScores.date,
+            "played": parseInt(played + 1)
+        }
+    }
+    localStorage.setItem(currentGame, JSON.stringify(newLocalStorage));
 }
 
 function addBgColor() {
@@ -476,10 +517,12 @@ function showStudySection() {
     // disable the study button and show it
     btnStudy.classList.add("disable");
     sectionStudy.classList.remove("hide");
-    // hide the welcome section
+    // hide the other sections
     sectionWelcome.classList.add("hide");
-    // enable the restart button
+    sectionScores.classList.add("hide");
+    // enable the other buttons
     btnRestart.classList.remove("disable");
+    btnScores.classList.remove("disable");
 }
 
 // listen to a user clicking within the studyContainer
@@ -498,8 +541,42 @@ function showFlagModal(e) {
     // display dialog/modal with specific flag/country clicked
     let countryName = e.target.dataset.country;
     let countryIso = e.target.dataset.iso;
-    document.getElementById("study-name").innerText = countryName;
-    document.getElementById("study-flag").src = `assets/images/flags/${countryIso}.svg`;
-    document.getElementById("study-flag").alt = `Flag of ${countryName}`;
-    document.getElementById("study").showModal();
+    let studyModalName = document.getElementById("study-name");
+    let studyModalFlag = document.getElementById("study-flag");
+    let studyModal = document.getElementById("study");
+    studyModalName.innerText = countryName;
+    studyModalFlag.src = `assets/images/flags/${countryIso}.svg`;
+    studyModalFlag.alt = `Flag of ${countryName}`;
+    studyModal.showModal();
+}
+
+btnScores.addEventListener("click", getScores);
+
+function getScores() {
+    // hide other sections
+    sectionWelcome.classList.add("hide");
+    sectionQuiz.classList.add("hide");
+    sectionFinalResults.classList.add("hide");
+    sectionStudy.classList.add("hide");
+    // enable the other buttons
+    btnRestart.classList.remove("disable");
+    btnStudy.classList.remove("disable");
+    
+    // show the scores section / button
+    sectionScores.classList.remove("hide");
+    btnScores.classList.add("disable");
+
+    let games = ["africa", "americas", "asia", "europe", "oceania", "random", "beast"];
+    // dynamically update the scores table with any existing values from localStorage
+    games.forEach(game => {
+        let getGameScore = JSON.parse(localStorage.getItem(game));
+        if (getGameScore) {
+            document.getElementById("empty-scores").classList.add("hide");
+            document.getElementById(`${game}-scores`).classList.remove("hide");
+            document.getElementById(`${game}-points`).innerText = getGameScore.score;
+            document.getElementById(`${game}-duration`).innerText = getGameScore.duration;
+            document.getElementById(`${game}-date`).innerText = getGameScore.date;
+            document.getElementById(`${game}-played`).innerText = getGameScore.played;
+        }
+    });
 }
