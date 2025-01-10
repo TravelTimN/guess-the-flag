@@ -441,38 +441,43 @@ function showResults() {
 
 function saveScores() {
     // save the score, duration, date, number of times played
-    let currentGame = selectedGame.toLowerCase();
+    const selectedRegion = selectedGame.toLowerCase();
+    const vexillumKey = "vexill-uhm";
 
-    let score, played, newLocalStorage;
+    // fetch any existing data from localStorage (or initialize an empty object)
+    let vexillumData = JSON.parse(localStorage.getItem(vexillumKey)) || {};
 
-    // check for existing localStorage for this game
-    let getGameScores = JSON.parse(localStorage.getItem(currentGame));
-    if (getGameScores) {
-        score = getGameScores.score;
-        played = getGameScores.played;
-    } else {
-        // no existing score(s)
-        score = played = "0";
-    }
+    // check if the current region data exists; if not, initialize it
+    let regionData = vexillumData[selectedRegion] || {
+        "score": 0,
+        "duration": "",
+        "date": "",
+        "played": 0
+    };
 
-    if (userPoints >= score) {
-        // new score is higher - update everything: score, duration, date, played
-        newLocalStorage = {
+    // update the regional data
+    if (userPoints >= regionData.score) {
+        // the player's score is higher; update everything
+        regionData = {
             "score": userPoints,
             "duration": `${gameMin} ${gameSec}`,
-            "date": new Date().toLocaleDateString("en-GB", {"day": "2-digit", "month": "short", "year": "numeric"}),
-            "played": parseInt(played + 1)
-        }
+            "date": new Date().toLocaleDateString("en-GB", {
+                "day": "2-digit",
+                "month": "short",
+                "year": "numeric"
+            }),
+            "played": regionData.played + 1
+        };
     } else {
-        // retain existing high score, but increment the number of times played
-        newLocalStorage = {
-            "score": getGameScores.score,
-            "duration": getGameScores.duration,
-            "date": getGameScores.date,
-            "played": parseInt(played + 1)
-        }
+        // no high score; retain previous high score, but update number of times played
+        regionData.played += 1;
     }
-    localStorage.setItem(currentGame, JSON.stringify(newLocalStorage));
+
+    // save the updated region data back to the main object
+    vexillumData[selectedRegion] = regionData;
+
+    // store the updated data in localStorage
+    localStorage.setItem(vexillumKey, JSON.stringify(vexillumData));
 }
 
 function addBgColor() {
@@ -566,17 +571,99 @@ function getScores() {
     sectionScores.classList.remove("hide");
     btnScores.classList.add("disable");
 
-    let games = ["africa", "americas", "asia", "europe", "oceania", "random", "beast"];
-    // dynamically update the scores table with any existing values from localStorage
+    const vexillumKey = "vexill-uhm";
+    const games = ["africa", "americas", "asia", "europe", "oceania", "random", "beast"];
+    const vexillumData = JSON.parse(localStorage.getItem(vexillumKey)) || {};
+
+    // dynamically update the scores table
+    let anyScoresExist = false;
+
+    // loop through each game type/region to extract data
     games.forEach(game => {
-        let getGameScore = JSON.parse(localStorage.getItem(game));
-        if (getGameScore) {
-            document.getElementById("empty-scores").classList.add("hide");
-            document.getElementById(`${game}-scores`).classList.remove("hide");
-            document.getElementById(`${game}-points`).innerText = getGameScore.score;
-            document.getElementById(`${game}-duration`).innerText = getGameScore.duration;
-            document.getElementById(`${game}-date`).innerText = getGameScore.date;
-            document.getElementById(`${game}-played`).innerText = getGameScore.played;
+        const gameData = vexillumData[game];
+        let spanGamePoints = document.getElementById(`${game}-points`);
+        let spanGameDuration = document.getElementById(`${game}-duration`);
+        let spanGameDate = document.getElementById(`${game}-date`);
+        let spanGamePlayed = document.getElementById(`${game}-played`);
+        let spanGameReset = document.querySelector(`[data-reset="${game}"]`);
+
+        if (gameData) {
+            anyScoresExist = true;
+            spanGamePoints.innerText = `${gameData.score} pts`;
+            spanGamePoints.parentElement.classList.replace("bg-grey", "bg-green");
+
+            spanGameDuration.innerText = gameData.duration;
+            spanGameDuration.parentElement.classList.replace("bg-grey", "bg-yellow");
+
+            spanGameDate.innerText = gameData.date.toUpperCase();
+            spanGameDate.parentElement.classList.replace("bg-grey", "bg-red");
+
+            spanGamePlayed.innerText = `x ${gameData.played}`;
+            spanGamePlayed.parentElement.classList.replace("bg-grey", "bg-white");
+
+            spanGameReset.classList.replace("bg-grey", "bg-black");
         }
     });
+
+    // hide the empty scores message if any scores exist
+    const emptyScoresElement = document.getElementById("empty-scores");
+    if (anyScoresExist) {
+        // scores exist - hide the element
+        emptyScoresElement.classList.add("hide");
+    } else {
+        // no scores exist - show the element
+        emptyScoresElement.classList.remove("hide");
+    }
+}
+
+// reset game score buttons
+btnReset.forEach(btn => {
+    btn.addEventListener("click", function() {
+        // which scores to delete?
+        let scoresToDelete = this.dataset.reset;
+        resetGameScore(scoresToDelete);
+    });
+});
+
+function resetGameScore(game) {
+    // users can select to reset game scores for individual games/regions
+    const vexillumKey = "vexill-uhm";
+
+    // retrieve the existing scores from localStorage
+    const vexillumData = JSON.parse(localStorage.getItem(vexillumKey)) || {};
+
+    // check if the selected game exists in the stored data
+    if (vexillumData[game]) {
+        delete vexillumData[game];
+
+        // save the updated object back to localStorage
+        localStorage.setItem(vexillumKey, JSON.stringify(vexillumData));
+
+        let spanGamePoints = document.getElementById(`${game}-points`);
+        let spanGameDuration = document.getElementById(`${game}-duration`);
+        let spanGameDate = document.getElementById(`${game}-date`);
+        let spanGamePlayed = document.getElementById(`${game}-played`);
+        let spanGameReset = document.querySelector(`[data-reset="${game}"]`);
+
+        // reset visually
+        setTimeout(() => {
+            spanGamePoints.innerText = "N/A";
+            spanGamePoints.parentElement.classList.replace("bg-green", "bg-grey");
+            setTimeout(() => {
+                spanGameDuration.innerText = "N/A";
+                spanGameDuration.parentElement.classList.replace("bg-yellow", "bg-grey");
+                setTimeout(() => {
+                    spanGameDate.innerText = "N/A";
+                    spanGameDate.parentElement.classList.replace("bg-red", "bg-grey");
+                    setTimeout(() => {
+                        spanGamePlayed.innerText = "N/A";
+                        spanGamePlayed.parentElement.classList.replace("bg-white", "bg-grey");
+                        setTimeout(() => {
+                            spanGameReset.classList.replace("bg-black", "bg-grey");
+                        }, 250);
+                    }, 250);
+                }, 250);
+            }, 250);
+        }, 250);
+    }
 }
