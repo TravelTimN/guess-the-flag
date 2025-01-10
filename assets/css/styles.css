@@ -18,6 +18,7 @@
     --blue: 0, 165, 255; /* #00A5FF */
     --black: 0, 0, 0; /* #000000 */
     --white: 255, 255, 255; /* #FFFFFF */
+    --ltgrey: 204, 204, 204; /* #CCCCCC */
 }
 
 /* text-colors */
@@ -27,14 +28,16 @@
 .txt-blue {color: rgba(var(--blue), 1);}
 .txt-black {color: rgba(var(--black), 1);}
 .txt-white {color: rgba(var(--white), 1);}
+.txt-grey {color: rgba(var(--ltgrey), 1);}
 
 /* bg-colors */
 .bg-red {background-color: rgba(var(--red), 1);}
 .bg-yellow {background-color: rgba(var(--yellow), 1);}
 .bg-green {background-color: rgba(var(--green), 1);}
 .bg-blue {background-color: rgba(var(--blue), 1);}
-.bg-black {background-color: rgba(var(--black), 1);}
-.bg-white {background-color: rgba(var(--white), 1);}
+.bg-black {background-color: rgba(var(--black), 1); color: rgba(var(--white), 1);}
+.bg-white {background-color: rgba(var(--white), 1); color: rgba(var(--black), 1);}
+.bg-grey {background-color: rgba(var(--ltgrey), 1); color: grey;}
 
 * {
     margin: 0 auto;
@@ -557,8 +560,7 @@ main {
     background-color: #212529;
 }
 
-.result-row:nth-child(even),
-.scores-row:nth-child(even) {
+.result-row:nth-child(even) {
     background-color: #313539;
 }
 
@@ -651,6 +653,7 @@ img#study-flag {
     align-items: center;
     justify-content: space-evenly;
     padding: 1em 0;
+    text-align: center;
 }
 
 .scores-row .scores-col {
@@ -661,14 +664,72 @@ img#study-flag {
     justify-content: center;
 }
 
+#score-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+}
+
+.score-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5em;
+    margin: 1em auto;
+}
+
+.score-card-row {
+    display: grid;
+}
+
+.score-card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.score-card-body {
+    width: 100%;
+    padding: 0.5em;
+    background-color: rgba(var(--black), 0.5);
+}
+
+.score-card-results {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.score-card-results .score-badge:first-child,
+.score-card-results .score-badge:last-child {
+    display: inline-block;
+}
+
 .score-badge {
     width: 100%;
-    margin: 0 0.5em;
+    margin: 0.5em 0;
     padding: 0.25em 1em;
     border-radius: 50em;
     white-space: nowrap;
     font-weight: bold;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.score-badge span {
+    margin: 0;
+}
+
+.bg-black.reset-score {
+    cursor: pointer;
+}
+
+.bg-grey.reset-score {
+    cursor: not-allowed;
 }
 
 /* footer */
@@ -856,6 +917,10 @@ footer {
     /* study */
     #study-container {
         column-count: 4;
+    }
+
+    .scores-row {
+        flex-direction: row;
     }
 }
 
