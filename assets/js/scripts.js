@@ -14,6 +14,7 @@ const btnRestart = document.getElementById("restart-btn");
 const btnNext = document.getElementById("next-btn");
 const btnResults = document.getElementById("results-btn");
 const btnScores = document.getElementById("scores-btn");
+const btnReset = document.querySelectorAll(".reset-score");
 const polaroids = document.querySelectorAll(".polaroid");
 const spanCountry = document.getElementById("country");
 const spanQuestionNumbers = document.querySelectorAll(".question-number");
@@ -45,6 +46,9 @@ let totalSeconds = 0;
 let gameMin = 0;
 let gameSec = 0;
 let currentCountryIndex = 0;
+
+// display total flag count
+spanTotalCountries.innerText = countries.length;
 
 // loop modals-open btns and listen for user click events
 btnOpenModals.forEach(btn => {
@@ -219,8 +223,6 @@ function startGame() {
             maxQuestions = 10;
             break;
     }
-    // display number of flags to be played
-    spanTotalCountries.innerText = maxQuestions;
 
     // call function to shuffle the selectedCountries
     shuffleCountries(selectedCountries);
