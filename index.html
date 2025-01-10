@@ -238,69 +238,136 @@
             <div id="scores-container">
                 <!-- no existing scores - hide all other rows -->
                 <div class="scores-row" id="empty-scores">
-                    <div class="scores-col txt-white">No Scores Found</div>
+                    <div class="scores-col txt-white">
+                        No Scores Found! Check back later once you've played at least one game.
+                    </div>
                 </div>
-                <!-- score: africa -->
-                <div class="scores-row hide" id="africa-scores">
-                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Africa</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="africa-points">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="africa-duration">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="africa-date">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="africa-played">0</span></span></div>
+
+                <div id="score-cards-container">
+
+                    <!-- scores: africa -->
+                    <div class="score-card" id="africa-scores">
+                        <div class="score-card-row">
+                            <img src="assets/images/polaroids/africa.png" class="score-card-img" alt="Photo of Giza Pyramids and Sphinx in Egypt">
+                            <div class="score-card-body">
+                                <p class="score-card-results txt-black">
+                                    <span class="score-badge bg-blue">Africa</span>
+                                    <span class="score-badge bg-grey">Highest: <span id="africa-points">N/A</span></span>
+                                    <span class="score-badge bg-grey">Duration: <span id="africa-duration">N/A</span></span>
+                                    <span class="score-badge bg-grey">Date: <span id="africa-date">N/A</span></span>
+                                    <span class="score-badge bg-grey">Played: <span id="africa-played">N/A</span></span>
+                                    <span class="score-badge bg-grey reset-score" data-reset="africa">RESET</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- scores: americas -->
+                    <div class="score-card" id="americas-scores">
+                        <div class="score-card-row">
+                            <img src="assets/images/polaroids/americas.png" class="score-card-img" alt="Photo of Christ the Redeemer in Brazil">
+                            <div class="score-card-body">
+                                <p class="score-card-results txt-black">
+                                    <span class="score-badge bg-blue">Americas</span>
+                                    <span class="score-badge bg-grey">Highest: <span id="americas-points">N/A</span></span>
+                                    <span class="score-badge bg-grey">Duration: <span id="americas-duration">N/A</span></span>
+                                    <span class="score-badge bg-grey">Date: <span id="americas-date">N/A</span></span>
+                                    <span class="score-badge bg-grey">Played: <span id="americas-played">N/A</span></span>
+                                    <span class="score-badge bg-grey reset-score" data-reset="americas">RESET</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- scores: asia -->
+                    <div class="score-card" id="asia-scores">
+                        <div class="score-card-row">
+                            <img src="assets/images/polaroids/asia.png" class="score-card-img" alt="Photo of Torii Gates in Japan">
+                            <div class="score-card-body">
+                                <p class="score-card-results txt-black">
+                                    <span class="score-badge bg-blue">Asia</span>
+                                    <span class="score-badge bg-grey">Highest: <span id="asia-points">N/A</span></span>
+                                    <span class="score-badge bg-grey">Duration: <span id="asia-duration">N/A</span></span>
+                                    <span class="score-badge bg-grey">Date: <span id="asia-date">N/A</span></span>
+                                    <span class="score-badge bg-grey">Played: <span id="asia-played">N/A</span></span>
+                                    <span class="score-badge bg-grey reset-score" data-reset="asia">RESET</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- scores: europe -->
+                    <div class="score-card" id="europe-scores">
+                        <div class="score-card-row">
+                            <img src="assets/images/polaroids/europe.png" class="score-card-img" alt="Photo of the Eiffel Tower in France">
+                            <div class="score-card-body">
+                                <p class="score-card-results txt-black">
+                                    <span class="score-badge bg-blue">Europe</span>
+                                    <span class="score-badge bg-grey">Highest: <span id="europe-points">N/A</span></span>
+                                    <span class="score-badge bg-grey">Duration: <span id="europe-duration">N/A</span></span>
+                                    <span class="score-badge bg-grey">Date: <span id="europe-date">N/A</span></span>
+                                    <span class="score-badge bg-grey">Played: <span id="europe-played">N/A</span></span>
+                                    <span class="score-badge bg-grey reset-score" data-reset="europe">RESET</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- scores: oceania -->
+                    <div class="score-card" id="oceania-scores">
+                        <div class="score-card-row">
+                            <img src="assets/images/polaroids/oceania.png" class="score-card-img" alt="Photo of the Sydney Opera House in Australia">
+                            <div class="score-card-body">
+                                <p class="score-card-results txt-black">
+                                    <span class="score-badge bg-blue">Oceania</span>
+                                    <span class="score-badge bg-grey">Highest: <span id="oceania-points">N/A</span></span>
+                                    <span class="score-badge bg-grey">Duration: <span id="oceania-duration">N/A</span></span>
+                                    <span class="score-badge bg-grey">Date: <span id="oceania-date">N/A</span></span>
+                                    <span class="score-badge bg-grey">Played: <span id="oceania-played">N/A</span></span>
+                                    <span class="score-badge bg-grey reset-score" data-reset="oceania">RESET</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- scores: random -->
+                    <div class="score-card" id="random-scores">
+                        <div class="score-card-row">
+                            <img src="assets/images/polaroids/random.png" class="score-card-img" alt="Photo of random country flags">
+                            <div class="score-card-body">
+                                <p class="score-card-results txt-black">
+                                    <span class="score-badge bg-blue">Random</span>
+                                    <span class="score-badge bg-grey">Highest: <span id="random-points">N/A</span></span>
+                                    <span class="score-badge bg-grey">Duration: <span id="random-duration">N/A</span></span>
+                                    <span class="score-badge bg-grey">Date: <span id="random-date">N/A</span></span>
+                                    <span class="score-badge bg-grey">Played: <span id="random-played">N/A</span></span>
+                                    <span class="score-badge bg-grey reset-score" data-reset="random">RESET</span>
+                                </p>
                 </div>
-                <!-- score: americas -->
-                <div class="scores-row hide" id="americas-scores">
-                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Americas</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="americas-points">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="americas-duration">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="americas-date">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="americas-played">0</span></span></div>
                 </div>
-                <!-- score: asia -->
-                <div class="scores-row hide" id="asia-scores">
-                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Asia</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="asia-points">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="asia-duration">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="asia-date">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="asia-played">0</span></span></div>
                 </div>
-                <!-- score: europe -->
-                <div class="scores-row hide" id="europe-scores">
-                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Europe</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="europe-points">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="europe-duration">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="europe-date">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="europe-played">0</span></span></div>
+    
+                    <!-- scores: beast -->
+                    <div class="score-card" id="beast-scores">
+                        <div class="score-card-row">
+                            <img src="assets/images/polaroids/beast.png" class="score-card-img" alt="Photo of black flag with 'Beast Mode' text in white">
+                            <div class="score-card-body">
+                                <p class="score-card-results txt-black">
+                                    <span class="score-badge bg-blue">Beast</span>
+                                    <span class="score-badge bg-grey">Highest: <span id="beast-points">N/A</span></span>
+                                    <span class="score-badge bg-grey">Duration: <span id="beast-duration">N/A</span></span>
+                                    <span class="score-badge bg-grey">Date: <span id="beast-date">N/A</span></span>
+                                    <span class="score-badge bg-grey">Played: <span id="beast-played">N/A</span></span>
+                                    <span class="score-badge bg-grey reset-score" data-reset="beast">RESET</span>
+                                </p>
                 </div>
-                <!-- score: oceania -->
-                <div class="scores-row hide" id="oceania-scores">
-                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Oceania</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="oceania-points">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="oceania-duration">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="oceania-date">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="oceania-played">0</span></span></div>
                 </div>
-                <!-- score: random -->
-                <div class="scores-row hide" id="random-scores">
-                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Random</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="random-points">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="random-duration">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="random-date">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="random-played">0</span></span></div>
                 </div>
-                <!-- score: beast -->
-                <div class="scores-row hide" id="beast-scores">
-                    <div class="scores-col"><span class="score-badge bg-blue txt-black">Beast</span></div>
-                    <div class="scores-col"><span class="score-badge bg-green txt-black">Highest: <span id="beast-points">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-yellow txt-black">Duration: <span id="beast-duration">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-red txt-black">Date: <span id="beast-date">N/A</span></span></div>
-                    <div class="scores-col"><span class="score-badge bg-white txt-black">Played: <span id="beast-played">0</span></span></div>
+
                 </div>
             </div>
 
-            <div id="scores-footer" class="bg-yellow">
-                Footer - delete all scores? Individual scores?
-            </div>
+            <div id="scores-footer" class="bg-yellow"></div>
 
         </section>
 
